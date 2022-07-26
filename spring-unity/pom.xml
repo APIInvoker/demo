@@ -21,7 +21,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions><!-- 去掉springboot默认的logback配置 -->
+            <exclusions><!-- 去掉springboot默认的logback配置，防止与log4j2冲突 -->
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-logging</artifactId>
@@ -61,6 +61,12 @@
         <!--    <groupId>org.springframework.cloud</groupId>-->
         <!--    <artifactId>spring-cloud-starter-zookeeper-config</artifactId>-->
         <!--</dependency>-->
+
+        <!-- 增加识别yaml格式依赖，加上这个才能辨认到log4j2.yaml文件 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
