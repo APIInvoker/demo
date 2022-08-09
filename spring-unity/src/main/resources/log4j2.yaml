@@ -125,7 +125,7 @@ Configuration:
         additivity: false
         AppenderRef:
           - ref: CONSOLE
-          - ref: PLATFORM_ROLLING_FILE
+          - ref: ROLLING_FILE
       - name: error
         level: debug
         additivity: true #追加
