@@ -1,0 +1,13 @@
+server:
+  port: 6001
+spring:
+  application:
+    name: spring-unity
+  datasource:
+    url: jdbc:postgresql://192.168.42.128:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+mybatis:
+  type-aliases-package: com.example.springunity.entity
+  mapper-locations: classpath:mapper/**Mapper.xml
