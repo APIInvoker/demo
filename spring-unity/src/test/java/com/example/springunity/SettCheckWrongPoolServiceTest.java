@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -27,6 +28,34 @@ public class SettCheckWrongPoolServiceTest {
     public void testBatchInsert() {
         List<SettCheckWrongPool> settCheckWrongPoolList = new ArrayList<>();
 
+        initSettCheckWrongPool(settCheckWrongPoolList);
+
+        Iterator<SettCheckWrongPool> it = settCheckWrongPoolList.iterator();
+
+        List<SettCheckWrongPool> dataToInsert = new ArrayList<>();
+
+        int times = 1;
+        while (true) {
+            for (int i = 0; i < 3; i++) {
+                if (it.hasNext()) {
+                    SettCheckWrongPool next = it.next();
+                    log.info("准备插入id为" + next.getId() + "的数据");
+                    dataToInsert.add(next);
+                    it.remove();
+                }
+            }
+            int count = settCheckWrongPoolService.batchInsert(dataToInsert);
+            dataToInsert.clear();
+            log.info("第" + times + "次批量插入了" + count + "条");
+            if (!it.hasNext()) {
+                log.info("没有数据了");
+                break;
+            }
+            times++;
+        }
+    }
+
+    private static void initSettCheckWrongPool(List<SettCheckWrongPool> settCheckWrongPoolList) {
         SettCheckWrongPool settCheckWrongPool1 = new SettCheckWrongPool();
         settCheckWrongPool1.setRequestNo("00001");
         settCheckWrongPool1.setCheckStatus("INIT");
@@ -59,7 +88,6 @@ public class SettCheckWrongPoolServiceTest {
         settCheckWrongPool2.setVersion(1L);
         settCheckWrongPool2.setOrderFrom("eetopin");
         settCheckWrongPool2.setCheckDate(new Date());
-
         settCheckWrongPoolList.add(settCheckWrongPool2);
 
         SettCheckWrongPool settCheckWrongPool3 = new SettCheckWrongPool();
@@ -77,11 +105,24 @@ public class SettCheckWrongPoolServiceTest {
         settCheckWrongPool3.setVersion(1L);
         settCheckWrongPool3.setOrderFrom("eetopin");
         settCheckWrongPool3.setCheckDate(new Date());
-
         settCheckWrongPoolList.add(settCheckWrongPool3);
 
-        int count = settCheckWrongPoolService.batchInsert(settCheckWrongPoolList);
-        log.info("插入了" + count + "条");
+        SettCheckWrongPool settCheckWrongPool4 = new SettCheckWrongPool();
+        settCheckWrongPool4.setRequestNo("00004");
+        settCheckWrongPool4.setCheckStatus("FALSE");
+        settCheckWrongPool4.setEditTime(new Date());
+        settCheckWrongPool4.setId(1000010L);
+        settCheckWrongPool4.setMerchentOrderNo("103");
+        settCheckWrongPool4.setAmount(new BigDecimal(3));
+        settCheckWrongPool4.setFundDirection("ADD");
+        settCheckWrongPool4.setTrxType("EXPENSE");
+        settCheckWrongPool4.setPayWayCode("WXMINI");
+        settCheckWrongPool4.setStatus("SUCCESS");
+        settCheckWrongPool4.setCreateTime(new Date());
+        settCheckWrongPool4.setVersion(1L);
+        settCheckWrongPool4.setOrderFrom("eetopin");
+        settCheckWrongPool4.setCheckDate(new Date());
+        settCheckWrongPoolList.add(settCheckWrongPool4);
     }
 
     @Test
