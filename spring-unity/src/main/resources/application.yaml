@@ -8,6 +8,17 @@ spring:
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
+  redis:
+    host: 192.168.42.128
+    port: 6379
+    jedis:
+      pool:
+        enabled: true
+        max-active: 8
+    password:
+    connect-timeout: 5000
+    #Redis中哪个库
+    database: 1
 mybatis:
   type-aliases-package: com.example.springunity.entity
   mapper-locations: classpath:mapper/**Mapper.xml
