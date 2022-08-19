@@ -30,29 +30,21 @@ public class SettCheckWrongPoolServiceTest {
 
         initSettCheckWrongPool(settCheckWrongPoolList);
 
-        Iterator<SettCheckWrongPool> it = settCheckWrongPoolList.iterator();
-
         List<SettCheckWrongPool> dataToInsert = new ArrayList<>();
 
-        int times = 1;
-        while (true) {
+        Iterator<SettCheckWrongPool> it = settCheckWrongPoolList.iterator();
+        do {
             for (int i = 0; i < 3; i++) {
                 if (it.hasNext()) {
-                    SettCheckWrongPool next = it.next();
-                    log.info("准备插入id为" + next.getId() + "的数据");
-                    dataToInsert.add(next);
+                    dataToInsert.add(it.next());
                     it.remove();
+                } else {
+                    break;
                 }
             }
-            int count = settCheckWrongPoolService.batchInsert(dataToInsert);
+            settCheckWrongPoolService.batchInsert(dataToInsert);
             dataToInsert.clear();
-            log.info("第" + times + "次批量插入了" + count + "条");
-            if (!it.hasNext()) {
-                log.info("没有数据了");
-                break;
-            }
-            times++;
-        }
+        } while (it.hasNext());
     }
 
     private static void initSettCheckWrongPool(List<SettCheckWrongPool> settCheckWrongPoolList) {
