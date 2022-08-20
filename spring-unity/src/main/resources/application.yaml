@@ -4,19 +4,14 @@ spring:
   application:
     name: spring-unity
   datasource:
-    url: jdbc:postgresql://192.168.42.128:5432/postgres
+    url: jdbc:postgresql://192.168.42.133:5432/dev
     username: postgres
-    password: postgres
+    password: adminadmin
     driver-class-name: org.postgresql.Driver
   redis:
-    host: 192.168.42.128
+    host: 192.168.42.133
     port: 6379
-    jedis:
-      pool:
-        enabled: true
-        max-active: 8
-    password:
-    connect-timeout: 5000
+    password: adminadmin
     #Redis中哪个库
     database: 1
 mybatis:
