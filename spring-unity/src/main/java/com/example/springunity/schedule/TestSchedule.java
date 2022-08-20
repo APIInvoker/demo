@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class TestSchedule {
-    @Scheduled(cron = "* 1 * * * ?")
+    @Scheduled(cron = "* * 1 * * ?")
     public void task1() {
         log.info("task1 infotask1");
         log.error("task1 errortask1");
