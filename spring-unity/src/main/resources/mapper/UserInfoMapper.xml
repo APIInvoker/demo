@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.springunity.mapper.UserInfoMapper">
 
-    <resultMap id="BaseResultMap" type="com.example.springunity.entity.UserInfo">
+    <resultMap id="BaseResultMap" type="com.example.springunity.pojo.UserInfoDO">
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="userId" column="user_id" jdbcType="BIGINT"/>
         <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
@@ -33,7 +33,7 @@
         gmt_modified
     </sql>
 
-    <select id="selectAllUserInfo" resultType="UserInfo">
+    <select id="selectAllUserInfo" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from dev_user_info

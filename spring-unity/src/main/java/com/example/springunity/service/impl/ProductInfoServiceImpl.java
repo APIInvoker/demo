@@ -1,7 +1,9 @@
 package com.example.springunity.service.impl;
 
-import com.example.springunity.pojo.ProductInfo;
+import com.example.springunity.pojo.ProductInfoDO;
+import com.example.springunity.pojo.vo.ProductInfoVO;
 import com.example.springunity.service.ProductInfoService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,7 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProductInfoServiceImpl implements ProductInfoService {
     @Override
-    public ProductInfo getByProductInfo(ProductInfo productInfo) {
-        return productInfo;
+    public ProductInfoVO getByProductInfo(ProductInfoDO productInfoDO) {
+        ProductInfoVO productInfoVO = new ProductInfoVO();
+        BeanUtils.copyProperties(productInfoDO, productInfoVO);
+        return productInfoVO;
     }
 }

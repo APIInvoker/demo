@@ -1,4 +1,4 @@
-package com.example.springunity.vo;
+package com.example.springunity.pojo.dto;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Data
-public class ProductInfoVo {
+public class ProductInfoDTO {
     /**
      * 商品名称
      */

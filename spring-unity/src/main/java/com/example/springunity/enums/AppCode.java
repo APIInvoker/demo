@@ -1,6 +1,6 @@
 package com.example.springunity.enums;
 
-import com.example.springunity.vo.StatusCode;
+import com.example.springunity.pojo.vo.StatusCode;
 import lombok.Getter;
 
 @Getter

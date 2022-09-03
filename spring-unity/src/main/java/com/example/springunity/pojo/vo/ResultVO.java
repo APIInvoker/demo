@@ -1,4 +1,4 @@
-package com.example.springunity.vo;
+package com.example.springunity.pojo.vo;
 
 import com.example.springunity.enums.ResultCode;
 
@@ -8,7 +8,7 @@ import java.util.Objects;
  * @author zhengxin
  * @createTime 2022/7/18 11:13
  */
-public class ResultVo {
+public class ResultVO {
     /**
      * 状态码
      */
@@ -27,7 +27,7 @@ public class ResultVo {
     /**
      * 手动设置返回vo
      */
-    public ResultVo(int code, String msg, Object data) {
+    public ResultVO(int code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
@@ -38,7 +38,7 @@ public class ResultVo {
      *
      * @param data 要返回的数据
      */
-    public ResultVo(Object data) {
+    public ResultVO(Object data) {
         code = ResultCode.SUCCESS.getCode();
         msg = ResultCode.SUCCESS.getMsg();
         this.data = data;
@@ -50,7 +50,7 @@ public class ResultVo {
      * @param statusCode 状态码
      * @param data       要返回的数据
      */
-    public ResultVo(StatusCode statusCode, Object data) {
+    public ResultVO(StatusCode statusCode, Object data) {
         code = statusCode.getCode();
         msg = statusCode.getMsg();
         this.data = data;
@@ -61,7 +61,7 @@ public class ResultVo {
      *
      * @param statusCode 状态码
      */
-    public ResultVo(StatusCode statusCode) {
+    public ResultVO(StatusCode statusCode) {
         code = statusCode.getCode();
         msg = statusCode.getMsg();
         data = null;
@@ -99,8 +99,8 @@ public class ResultVo {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ResultVo resultVo = (ResultVo) o;
-        return code == resultVo.code && Objects.equals(msg, resultVo.msg) && Objects.equals(data, resultVo.data);
+        ResultVO resultVO = (ResultVO) o;
+        return code == resultVO.code && Objects.equals(msg, resultVO.msg) && Objects.equals(data, resultVO.data);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class ResultVo {
 
     @Override
     public String toString() {
-        return "ResultVo{" +
+        return "ResultVO{" +
                 "code=" + code +
                 ", msg='" + msg + '\'' +
                 ", data=" + data +

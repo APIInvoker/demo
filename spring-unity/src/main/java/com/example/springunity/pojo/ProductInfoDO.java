@@ -2,22 +2,22 @@ package com.example.springunity.pojo;
 
 import lombok.Data;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-/**
- * @author zhengxin
- * @createTime 2022/7/18 11:27
- */
 @Data
-public class ProductInfo {
+public class ProductInfoDO {
     /**
      * 商品名称
      */
+    @NotNull(message = "商品名称不允许为空")
     private String productName;
 
     /**
      * 商品价格
      */
+    @Min(value = 0, message = "商品价格不允许为负数")
     private BigDecimal productPrice;
 
     /**

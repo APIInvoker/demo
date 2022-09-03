@@ -1,4 +1,4 @@
-package com.example.springunity.vo;
+package com.example.springunity.pojo.vo;
 
 /**
  * @author zhengxin

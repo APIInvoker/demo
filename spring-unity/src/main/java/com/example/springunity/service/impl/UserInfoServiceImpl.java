@@ -1,12 +1,14 @@
 package com.example.springunity.service.impl;
 
-import com.example.springunity.entity.SettCheckWrongPool;
-import com.example.springunity.entity.UserInfo;
 import com.example.springunity.mapper.UserInfoMapper;
+import com.example.springunity.pojo.UserInfoDO;
+import com.example.springunity.pojo.vo.UserInfoVO;
 import com.example.springunity.service.UserInfoService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,11 +22,14 @@ public class UserInfoServiceImpl implements UserInfoService {
     private UserInfoMapper userInfoMapper;
 
     @Override
-    public List<UserInfo> queryAllUserInfo() {
-        return userInfoMapper.selectAllUserInfo();
+    public List<UserInfoVO> queryAllUserInfo() {
+        List<UserInfoDO> userInfoDOList = userInfoMapper.selectAllUserInfo();
+        List<UserInfoVO> userInfoVOList = new ArrayList<>();
+        userInfoDOList.forEach(o -> {
+            UserInfoVO userInfoVO = new UserInfoVO();
+            BeanUtils.copyProperties(o, userInfoVO);
+            userInfoVOList.add(userInfoVO);
+        });
+        return userInfoVOList;
     }
 }
-
-
-
-

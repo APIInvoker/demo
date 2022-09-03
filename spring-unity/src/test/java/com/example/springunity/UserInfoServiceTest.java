@@ -1,7 +1,7 @@
 package com.example.springunity;
 
 import com.alibaba.fastjson2.JSON;
-import com.example.springunity.entity.UserInfo;
+import com.example.springunity.pojo.vo.UserInfoVO;
 import com.example.springunity.service.UserInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ public class UserInfoServiceTest {
 
     @Test
     public void testSelectAllUserInfo() {
-        for (UserInfo userInfo : userInfoService.queryAllUserInfo()) {
+        for (UserInfoVO userInfo : userInfoService.queryAllUserInfo()) {
             log.info(JSON.toJSONString(userInfo));
         }
     }

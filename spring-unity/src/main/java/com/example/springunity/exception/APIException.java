@@ -1,7 +1,7 @@
 package com.example.springunity.exception;
 
 import com.example.springunity.enums.AppCode;
-import com.example.springunity.vo.StatusCode;
+import com.example.springunity.pojo.vo.StatusCode;
 import lombok.Getter;
 
 @Getter
@@ -25,5 +25,4 @@ public class APIException extends RuntimeException {
         code = AppCode.APP_ERROR.getCode();
         msg = AppCode.APP_ERROR.getMsg();
     }
-
 }

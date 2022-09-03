@@ -4,16 +4,16 @@ spring:
   application:
     name: spring-unity
   datasource:
-    url: jdbc:postgresql://192.168.42.133:5432/dev
+    url: jdbc:postgresql://192.168.50.137:5432/dev
     username: postgres
     password: adminadmin
     driver-class-name: org.postgresql.Driver
   redis:
-    host: 192.168.42.133
+    host: 192.168.50.137
     port: 6379
     password: adminadmin
     #Redis中哪个库
     database: 1
 mybatis:
-  type-aliases-package: com.example.springunity.entity
+  type-aliases-package: com.example.springunity.pojo
   mapper-locations: classpath:mapper/**Mapper.xml

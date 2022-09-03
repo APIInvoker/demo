@@ -1,15 +1,17 @@
-package com.example.springunity.entity;
+package com.example.springunity.pojo;
+
+import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 用户信息表
+ *
  * @TableName dev_user_info
  */
 @Data
-public class UserInfo implements Serializable {
+public class UserInfoDO implements Serializable {
     /**
      * 主键
      */

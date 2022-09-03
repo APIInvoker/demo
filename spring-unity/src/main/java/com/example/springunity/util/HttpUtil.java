@@ -23,7 +23,7 @@ public class HttpUtil {
     /**
      * 带参数的get请求
      *
-     * @param url url
+     * @param url   url
      * @param param map形式的参数
      * @return String 返回数据
      */
@@ -78,7 +78,7 @@ public class HttpUtil {
     /**
      * 带参数的post请求
      *
-     * @param url url
+     * @param url   url
      * @param param map形式的参数
      * @return String 返回数据
      */
@@ -130,7 +130,7 @@ public class HttpUtil {
     /**
      * 传送json类型的post请求
      *
-     * @param url url
+     * @param url  url
      * @param json JSON格式的参数
      * @return String 返回数据
      */

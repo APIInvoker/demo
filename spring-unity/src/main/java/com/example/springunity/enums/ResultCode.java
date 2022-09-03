@@ -1,6 +1,6 @@
 package com.example.springunity.enums;
 
-import com.example.springunity.vo.StatusCode;
+import com.example.springunity.pojo.vo.StatusCode;
 
 public enum ResultCode implements StatusCode {
     SUCCESS(1000, "请求成功"),

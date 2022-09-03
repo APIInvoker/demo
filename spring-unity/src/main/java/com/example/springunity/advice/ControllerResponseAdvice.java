@@ -3,7 +3,7 @@ package com.example.springunity.advice;
 import com.example.springunity.annotation.NotControllerResponseAdvice;
 import com.example.springunity.enums.ResultCode;
 import com.example.springunity.exception.APIException;
-import com.example.springunity.vo.ResultVo;
+import com.example.springunity.pojo.vo.ResultVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;
@@ -19,7 +19,7 @@ public class ControllerResponseAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
         // response是ResultVo类型，或者注释了NotControllerResponseAdvice都不进行包装
-        return !(methodParameter.getParameterType().isAssignableFrom(ResultVo.class)
+        return !(methodParameter.getParameterType().isAssignableFrom(ResultVO.class)
                 || methodParameter.hasMethodAnnotation(NotControllerResponseAdvice.class));
     }
 
@@ -32,13 +32,12 @@ public class ControllerResponseAdvice implements ResponseBodyAdvice<Object> {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
                 // 将数据包装在ResultVo里后转换为json串进行返回
-                return objectMapper.writeValueAsString(new ResultVo(body));
+                return objectMapper.writeValueAsString(new ResultVO(body));
             } catch (JsonProcessingException e) {
                 throw new APIException(ResultCode.RESPONSE_PACK_ERROR, e.getMessage());
             }
         }
         // 否则直接包装成ResultVo返回
-        return new ResultVo(body);
+        return new ResultVO(body);
     }
-
 }
