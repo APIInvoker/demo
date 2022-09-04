@@ -1,6 +1,6 @@
 package com.example.springunity.service;
 
-import com.example.springunity.pojo.vo.UserInfoVO;
+import com.example.springunity.pojo.dto.UserInfoDTO;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ import java.util.List;
  * @createDate 2022-08-16 23:03:28
  */
 public interface UserInfoService {
-    List<UserInfoVO> queryAllUserInfo();
+    List<UserInfoDTO> queryUserByCondition(UserInfoDTO userInfoDTO);
 }

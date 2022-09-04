@@ -1,13 +1,12 @@
 package com.example.springunity.pojo;
 
-import lombok.Data;
-
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
+import lombok.Data;
 
 /**
  * 用户信息表
- *
  * @TableName dev_user_info
  */
 @Data
@@ -28,14 +27,9 @@ public class UserInfoDO implements Serializable {
     private String nickName;
 
     /**
-     * 用户头像
+     * 生日
      */
-    private String logo;
-
-    /**
-     * 用户标签：用多个逗号分割
-     */
-    private String tags;
+    private Date birthday;
 
     /**
      * 性别：1-男，2-女，3-未知
@@ -48,39 +42,14 @@ public class UserInfoDO implements Serializable {
     private Integer age;
 
     /**
-     * 学历
-     */
-    private String edu;
-
-    /**
-     * 居住城市
-     */
-    private String city;
-
-    /**
-     * 生日
-     */
-    private String birthday;
-
-    /**
-     * 封面图片
-     */
-    private String coverPic;
-
-    /**
-     * 行业
-     */
-    private String industry;
-
-    /**
      * 收入
      */
-    private String income;
+    private BigDecimal income;
 
     /**
-     * 婚姻状态
+     * 是否删除
      */
-    private String marriage;
+    private Integer deleted;
 
     /**
      * 创建时间
@@ -92,5 +61,5 @@ public class UserInfoDO implements Serializable {
      */
     private Date gmtModified;
 
-    private static final long serialVersionUID = -2994531335068773954L;
+    private static final long serialVersionUID = 3418003266406894786L;
 }

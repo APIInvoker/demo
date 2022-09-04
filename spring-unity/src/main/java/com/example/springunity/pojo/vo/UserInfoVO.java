@@ -3,7 +3,6 @@ package com.example.springunity.pojo.vo;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 用户信息表
@@ -13,11 +12,6 @@ import java.util.Date;
 @Data
 public class UserInfoVO implements Serializable {
     /**
-     * 主键
-     */
-    private Long id;
-
-    /**
      * 用户id
      */
     private Long userId;
@@ -26,16 +20,6 @@ public class UserInfoVO implements Serializable {
      * 昵称
      */
     private String nickName;
-
-    /**
-     * 用户头像
-     */
-    private String logo;
-
-    /**
-     * 用户标签：用多个逗号分割
-     */
-    private String tags;
 
     /**
      * 性别：1-男，2-女，3-未知
@@ -48,49 +32,14 @@ public class UserInfoVO implements Serializable {
     private Integer age;
 
     /**
-     * 学历
-     */
-    private String edu;
-
-    /**
-     * 居住城市
-     */
-    private String city;
-
-    /**
      * 生日
      */
     private String birthday;
 
     /**
-     * 封面图片
-     */
-    private String coverPic;
-
-    /**
-     * 行业
-     */
-    private String industry;
-
-    /**
      * 收入
      */
-    private String income;
-
-    /**
-     * 婚姻状态
-     */
-    private String marriage;
-
-    /**
-     * 创建时间
-     */
-    private Date gmtCreate;
-
-    /**
-     * 修改时间
-     */
-    private Date gmtModified;
+    private Long income;
 
     private static final long serialVersionUID = -2994531335068773954L;
 }
