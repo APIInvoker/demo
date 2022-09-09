@@ -31,15 +31,16 @@ public class UnityController {
     @Resource
     private UserInfoService userInfoService;
 
-    @GetMapping("/health")
+    @GetMapping("/heart")
     @NotControllerResponseAdvice
     public String health() {
+        log.info("heart");
         return "success";
     }
 
     @GetMapping("/testResult")
-    @NotControllerResponseAdvice
     public ResultVO testResult() {
+        log.info("testResultVO");
         ResultVO result = new ResultVO("success");
         return result;
     }

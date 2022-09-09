@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 public class ControllerResponseAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter methodParameter, Class<? extends HttpMessageConverter<?>> aClass) {
-        // response是ResultVo类型，或者注释了NotControllerResponseAdvice都不进行包装
+        // response是ResultVo类型，或者注释了@NotControllerResponseAdvice都不进行包装
         return !(methodParameter.getParameterType().isAssignableFrom(ResultVO.class)
                 || methodParameter.hasMethodAnnotation(NotControllerResponseAdvice.class));
     }
@@ -27,9 +27,6 @@ public class ControllerResponseAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
                                   Class<? extends HttpMessageConverter<?>> selectedConverterType,
                                   ServerHttpRequest request, ServerHttpResponse response) {
-        if (body instanceof ResultVO) {
-            return body;
-        }
         // String类型不能直接包装
         if (returnType.getGenericParameterType().equals(String.class)) {
             ObjectMapper objectMapper = new ObjectMapper();
