@@ -20,9 +20,6 @@ public class UserInfoServiceTest {
     private UserInfoService userInfoService;
 
     @Test
-    public void testSelectAllUserInfo() {
-        for (UserInfoVO userInfo : userInfoService.queryAllUserInfo()) {
-            log.info(JSON.toJSONString(userInfo));
-        }
+    public void test1() {
     }
 }

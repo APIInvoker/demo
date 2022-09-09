@@ -2,6 +2,7 @@ package com.example.springunity.controller;
 
 import com.example.springunity.annotation.NotControllerResponseAdvice;
 import com.example.springunity.pojo.dto.UserInfoDTO;
+import com.example.springunity.pojo.vo.ResultVO;
 import com.example.springunity.pojo.vo.UserInfoVO;
 import com.example.springunity.service.UserInfoService;
 import com.example.springunity.util.HttpUtil;
@@ -34,6 +35,13 @@ public class UnityController {
     @NotControllerResponseAdvice
     public String health() {
         return "success";
+    }
+
+    @GetMapping("/testResult")
+    @NotControllerResponseAdvice
+    public ResultVO testResult() {
+        ResultVO result = new ResultVO("success");
+        return result;
     }
 
     @RequestMapping("http")
