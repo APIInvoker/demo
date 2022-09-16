@@ -5,8 +5,8 @@ import com.example.springunity.enums.ResultCode;
 import java.util.Objects;
 
 /**
- * @author zhengxin
- * @createTime 2022/7/18 11:13
+ * @Author zhengxin
+ * @Date 2022/7/18 11:13
  */
 public class ResultVO {
     /**

@@ -5,8 +5,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
- * @author zhengxin
- * @createTime 2022/7/20 9:48
+ * @Author zhengxin
+ * @Date 2022/7/20 9:48
  */
 @Component
 @Slf4j

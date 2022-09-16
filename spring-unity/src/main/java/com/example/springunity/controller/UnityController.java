@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author zhengxin
- * @createTime 2022/7/18 11:24
+ * @Author zhengxin
+ * @Date 2022/7/18 11:24
  */
 @RestController
 @RequestMapping("/")
@@ -35,14 +35,14 @@ public class UnityController {
     @NotControllerResponseAdvice
     public String health() {
         log.info("heart");
+        log.error("heart");
         return "success";
     }
 
     @GetMapping("/testResult")
     public ResultVO testResult() {
         log.info("testResultVO");
-        ResultVO result = new ResultVO("success");
-        return result;
+        return new ResultVO("success");
     }
 
     @RequestMapping("http")

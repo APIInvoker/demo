@@ -18,10 +18,10 @@ Configuration:
       - name: log.path
         value: ./${project.name}/logs
       - name: log.pattern
-        value: "%d | %-5p | %F:%L | %m%n"
+        value: "%d | %X{traceId}%X{split}%-5p| %F:%L | %m%n"
       - name: console.log.pattern
         # VM启动项加上"-Dlog4j.skipJansi=false"才能启动彩色
-        value: "%highlight{%d | %-5p | %F:%L | %m%n}"
+        value: "%highlight{%d | %X{traceId}%X{split}%-5p| %F:%L | %m%n}"
   appenders:
     #输出到控制台
     Console:
