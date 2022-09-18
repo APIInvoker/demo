@@ -1,9 +1,9 @@
 package com.example.springunity.advice;
 
 import com.example.springunity.annotation.NotControllerResponseAdvice;
-import com.example.springunity.enums.ResultCode;
+import com.example.springunity.enums.ResponseCode;
 import com.example.springunity.exception.APIException;
-import com.example.springunity.pojo.vo.ResultVO;
+import com.example.springunity.pojo.vo.ResponseVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;
@@ -20,8 +20,8 @@ import javax.annotation.Nonnull;
 public class ControllerResponseAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public boolean supports(MethodParameter methodParameter, @Nonnull Class<? extends HttpMessageConverter<?>> aClass) {
-        // response是ResultVo类型，或者注释了@NotControllerResponseAdvice都不进行包装
-        return !(methodParameter.getParameterType().isAssignableFrom(ResultVO.class)
+        // response是responseVO类型，或者注释了@NotControllerResponseAdvice都不进行包装
+        return !(methodParameter.getParameterType().isAssignableFrom(ResponseVO.class)
                 || methodParameter.hasMethodAnnotation(NotControllerResponseAdvice.class));
     }
 
@@ -33,13 +33,13 @@ public class ControllerResponseAdvice implements ResponseBodyAdvice<Object> {
         if (returnType.getGenericParameterType().equals(String.class)) {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
-                // 将数据包装在ResultVo里后转换为json串进行返回
-                return objectMapper.writeValueAsString(new ResultVO(body));
+                // 将数据包装在ResponseVO里后转换为json串进行返回
+                return objectMapper.writeValueAsString(new ResponseVO(body));
             } catch (JsonProcessingException e) {
-                throw new APIException(ResultCode.RESPONSE_PACK_ERROR, e.getMessage());
+                throw new APIException(ResponseCode.RESPONSE_PACK_ERROR, e.getMessage());
             }
         }
-        // 否则直接包装成ResultVo返回
-        return new ResultVO(body);
+        // 否则直接包装成ResponseVO返回
+        return new ResponseVO(body);
     }
 }

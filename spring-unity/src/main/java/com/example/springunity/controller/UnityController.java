@@ -2,10 +2,11 @@ package com.example.springunity.controller;
 
 import com.example.springunity.annotation.NotControllerResponseAdvice;
 import com.example.springunity.pojo.dto.UserInfoDTO;
-import com.example.springunity.pojo.vo.ResultVO;
+import com.example.springunity.pojo.vo.ResponseVO;
 import com.example.springunity.pojo.vo.UserInfoVO;
 import com.example.springunity.service.UserInfoService;
 import com.example.springunity.util.HttpUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,10 +40,10 @@ public class UnityController {
         return "success";
     }
 
-    @GetMapping("/testResult")
-    public ResultVO testResult() {
-        log.info("testResultVO");
-        return new ResultVO("success");
+    @GetMapping("/testResponse")
+    public ResponseVO testResponse() {
+        log.info("testResponseVO");
+        return new ResponseVO("success");
     }
 
     @RequestMapping("http")
@@ -51,7 +52,7 @@ public class UnityController {
     }
 
     @RequestMapping("queryUserByCondition")
-    public List<UserInfoVO> queryUserByCondition(UserInfoDTO userInfoDTO) {
+    public List<UserInfoVO> queryUserByCondition(UserInfoDTO userInfoDTO) throws JsonProcessingException {
         List<UserInfoDTO> userInfoDTOList = userInfoService.queryUserByCondition(userInfoDTO);
         List<UserInfoVO> userInfoVOList = new ArrayList<>();
         userInfoDTOList.forEach(o -> {

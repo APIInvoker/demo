@@ -1,6 +1,6 @@
 package com.example.springunity.pojo.vo;
 
-import com.example.springunity.enums.ResultCode;
+import com.example.springunity.enums.ResponseCode;
 
 import java.util.Objects;
 
@@ -8,7 +8,7 @@ import java.util.Objects;
  * @Author zhengxin
  * @Date 2022/7/18 11:13
  */
-public class ResultVO {
+public class ResponseVO {
     /**
      * 状态码
      */
@@ -27,7 +27,7 @@ public class ResultVO {
     /**
      * 手动设置返回vo
      */
-    public ResultVO(int code, String msg, Object data) {
+    public ResponseVO(int code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
@@ -38,9 +38,9 @@ public class ResultVO {
      *
      * @param data 要返回的数据
      */
-    public ResultVO(Object data) {
-        code = ResultCode.SUCCESS.getCode();
-        msg = ResultCode.SUCCESS.getMsg();
+    public ResponseVO(Object data) {
+        code = ResponseCode.SUCCESS.getCode();
+        msg = ResponseCode.SUCCESS.getMsg();
         this.data = data;
     }
 
@@ -50,7 +50,7 @@ public class ResultVO {
      * @param statusCode 状态码
      * @param data       要返回的数据
      */
-    public ResultVO(StatusCode statusCode, Object data) {
+    public ResponseVO(StatusCode statusCode, Object data) {
         code = statusCode.getCode();
         msg = statusCode.getMsg();
         this.data = data;
@@ -61,7 +61,7 @@ public class ResultVO {
      *
      * @param statusCode 状态码
      */
-    public ResultVO(StatusCode statusCode) {
+    public ResponseVO(StatusCode statusCode) {
         code = statusCode.getCode();
         msg = statusCode.getMsg();
         data = null;
@@ -99,8 +99,8 @@ public class ResultVO {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        ResultVO resultVO = (ResultVO) o;
-        return code == resultVO.code && Objects.equals(msg, resultVO.msg) && Objects.equals(data, resultVO.data);
+        ResponseVO responseVO = (ResponseVO) o;
+        return code == responseVO.code && Objects.equals(msg, responseVO.msg) && Objects.equals(data, responseVO.data);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class ResultVO {
 
     @Override
     public String toString() {
-        return "ResultVO{" +
+        return "ResponseVO{" +
                 "code=" + code +
                 ", msg='" + msg + '\'' +
                 ", data=" + data +

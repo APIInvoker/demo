@@ -1,8 +1,12 @@
 package com.example.springunity.enums;
 
 import com.example.springunity.pojo.vo.StatusCode;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-public enum ResultCode implements StatusCode {
+@Getter
+@AllArgsConstructor
+public enum ResponseCode implements StatusCode {
     SUCCESS(1000, "请求成功"),
     FAILED(1001, "请求失败"),
     VALIDATE_ERROR(1002, "参数校验失败"),
@@ -10,19 +14,4 @@ public enum ResultCode implements StatusCode {
 
     private final int code;
     private final String msg;
-
-    @Override
-    public int getCode() {
-        return code;
-    }
-
-    @Override
-    public String getMsg() {
-        return msg;
-    }
-
-    ResultCode(int code, String msg) {
-        this.code = code;
-        this.msg = msg;
-    }
 }
