@@ -1,26 +1,33 @@
 package com.example.springunity.advice;
 
-import com.example.springunity.enums.ResultCode;
+import com.example.springunity.enums.ResponseCode;
 import com.example.springunity.exception.APIException;
-import com.example.springunity.pojo.vo.ResultVO;
+import com.example.springunity.pojo.vo.ResponseVO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice
 @Slf4j
+@RestControllerAdvice
 public class ControllerExceptionAdvice {
     @ExceptionHandler(BindException.class)
-    public ResultVO MethodArgumentNotValidExceptionHandler(BindException e) {
+    public ResponseVO MethodArgumentNotValidExceptionHandler(BindException e) {
         ObjectError objectError = e.getBindingResult().getAllErrors().get(0);
-        return new ResultVO(ResultCode.VALIDATE_ERROR, objectError.getDefaultMessage());
+        return new ResponseVO(ResponseCode.VALIDATE_ERROR, objectError.getDefaultMessage());
     }
 
     @ExceptionHandler(APIException.class)
-    public ResultVO APIExceptionHandler(APIException e) {
+    public ResponseVO APIExceptionHandler(APIException e) {
         log.error(e.getMessage(), e);
-        return new ResultVO(e.getCode(), e.getMsg(), e.getMessage());
+        return new ResponseVO(e.getCode(), e.getMsg(), e.getMessage());
+    }
+
+    @ExceptionHandler(JsonProcessingException.class)
+    public ResponseVO APIExceptionHandler(JsonProcessingException e) {
+        log.error(e.getMessage(), e);
+        return new ResponseVO(ResponseCode.RESPONSE_PACK_ERROR, e.getMessage());
     }
 }
