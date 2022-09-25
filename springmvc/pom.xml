@@ -40,5 +40,23 @@
             <version>3.0.2</version>
             <scope>compile</scope>
         </dependency>
+        <!-- log4j2 -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.19.0</version>
+        </dependency>
+        <dependency>
+            <scope>compile</scope>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-web</artifactId>
+            <version>2.19.0</version>
+        </dependency>
+        <!-- 增加识别yaml格式依赖，加上这个才能辨认到yaml格式的log4j2配置文件，其中包含了jackson -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+            <version>2.13.4</version>
+        </dependency>
     </dependencies>
 </project>
