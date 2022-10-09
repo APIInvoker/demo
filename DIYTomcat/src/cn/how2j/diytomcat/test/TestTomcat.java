@@ -10,7 +10,6 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -20,8 +19,8 @@ import java.util.concurrent.TimeUnit;
  * @since 2022/10/7 22:10
  */
 public class TestTomcat {
-    private static int port = 18080;
-    private static String ip = "127.0.0.1";
+    private static final int port = 18080;
+    private static final String ip = "127.0.0.1";
 
     @BeforeClass
     public static void beforeClass() {

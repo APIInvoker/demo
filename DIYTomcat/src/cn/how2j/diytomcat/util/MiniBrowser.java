@@ -16,8 +16,8 @@ import java.util.Set;
 /**
  * 单元测试用的一个模拟浏览器。<br/>这个浏览器会模拟发送 Http 协议的请求，并且获取完整的 Http 响应，通过这种方式，我们就可以更好的理解浏览器与服务器是如何通信。<br/>就可以不用每次打开浏览器输地址来看效果了，方便。
  *
- * @author Zheng Xin
  * @since 2022/9/29 22:09
+ * @author Zheng Xin
  */
 public class MiniBrowser {
 
