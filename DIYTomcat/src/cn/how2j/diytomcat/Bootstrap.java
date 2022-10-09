@@ -3,7 +3,9 @@ package cn.how2j.diytomcat;
 import cn.how2j.diytomcat.http.Request;
 import cn.how2j.diytomcat.http.Response;
 import cn.how2j.diytomcat.util.Constant;
+import cn.how2j.diytomcat.util.ThreadPoolUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.log.LogFactory;
@@ -25,52 +27,51 @@ import java.util.Set;
  * @since 2022/10/8 22:42
  */
 public class Bootstrap {
-
     public static void main(String[] args) {
-
         try {
             logJVM();
             int port = 18080;
-
-            // if (!NetUtil.isUsableLocalPort(port)) {
-            //     System.out.println(port + " 端口已经被占用了，排查并关闭本端口的办法请用：\r\nhttps://how2j.cn/k/tomcat/tomcat-portfix/545.html");
-            //     return;
-            // }
-            ServerSocket ss = new ServerSocket(port);
-
-            while (true) {
-                Socket s = ss.accept();
-                Request request = new Request(s);
-                String uri = request.getUri();
-                // 跳过因TestTomcat中NetUtil.isUsableLocalPort()方法产生的一个空连接
-                if (null == uri) {
-                    continue;
+            try (ServerSocket ss = new ServerSocket(port)) {
+                while (true) {
+                    Socket s = ss.accept();
+                    Runnable r = () -> {
+                        try {
+                            Request request = new Request(s);
+                            String uri = request.getUri();
+                            // 跳过因TestTomcat中NetUtil.isUsableLocalPort()方法产生的一个空连接
+                            if (null == uri) {
+                                return;
+                            }
+                            System.out.println("uri:" + request.getUri());
+                            Response response = new Response();
+                            if ("/".equals(uri)) {
+                                String html = "Hello DIY Tomcat from how2j.cn";
+                                response.getWriter().println(html);
+                            } else {
+                                String fileName = StrUtil.removePrefix(uri, "/");
+                                File file = FileUtil.file(Constant.rootFolder, fileName);
+                                if (file.exists()) {
+                                    String fileContent = FileUtil.readUtf8String(file);
+                                    response.getWriter().println(fileContent);
+                                    if (fileName.equals("timeConsume.html")) {
+                                        ThreadUtil.sleep(1000);
+                                    }
+                                } else {
+                                    response.getWriter().println("File Not Found");
+                                }
+                            }
+                            handle200(s, response);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    };
+                    ThreadPoolUtil.run(r);
                 }
-
-                System.out.println("浏览器的输入信息： \r\n" + request.getRequestString());
-                System.out.println("uri:" + request.getUri());
-                Response response = new Response();
-
-                if ("/".equals(uri)) {
-                    String html = "Hello DIY Tomcat from how2j.cn";
-                    response.getWriter().println(html);
-                } else {
-                    String fileName = StrUtil.removePrefix(uri, "/");
-                    File file = FileUtil.file(Constant.rootFolder, fileName);
-                    if (file.exists()) {
-                        String fileContent = FileUtil.readUtf8String(file);
-                        response.getWriter().println(fileContent);
-                    } else {
-                        response.getWriter().println("File Not Found");
-                    }
-                }
-                handle200(s, response);
             }
         } catch (IOException e) {
             LogFactory.get().error(e);
             e.printStackTrace();
         }
-
     }
 
     private static void logJVM() {

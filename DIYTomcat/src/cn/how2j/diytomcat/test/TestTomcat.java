@@ -2,11 +2,18 @@ package cn.how2j.diytomcat.test;
 
 import cn.how2j.diytomcat.Bootstrap;
 import cn.how2j.diytomcat.util.MiniBrowser;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.TimeInterval;
 import cn.hutool.core.util.NetUtil;
 import cn.hutool.core.util.StrUtil;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Zheng Xin
@@ -40,6 +47,27 @@ public class TestTomcat {
         String html = getContentString("/");
         Assert.assertEquals(html, "Hello DIY Tomcat from how2j.cn");
         System.out.println("回归测试通过");
+    }
+
+    @Test
+    public void testTimeConsumeHtml() throws InterruptedException {
+        ThreadPoolExecutor threadPool = new ThreadPoolExecutor(20, 20, 60, TimeUnit.SECONDS,
+                new LinkedBlockingQueue<>(10));
+        TimeInterval timeInterval = DateUtil.timer();
+
+        for (int i = 0; i < 3; i++) {
+            threadPool.execute(() -> getContentString("/timeConsume.html"));
+        }
+        // 尝试关闭线程池，但是如果 线程池里有任务在运行，就不会强制关闭，直到任务都结束了，才关闭
+        threadPool.shutdown();
+        // 给线程池1个小时的时间去执行，如果超过1个小时了也会返回，如果在一个小时内任务结束了，就会马上返回
+        boolean shutdownResult = threadPool.awaitTermination(1, TimeUnit.HOURS);
+        long duration = 0;
+        if (shutdownResult) {
+            duration = timeInterval.intervalMs();
+        }
+
+        Assert.assertTrue(duration < 3000);
     }
 
     private String getContentString(String uri) {
