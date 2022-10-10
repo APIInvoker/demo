@@ -13,8 +13,8 @@ import org.junit.Test;
  * @author Zheng Xin
  */
 public class TestHtml {
-    private static int port = 18080;
-    private static String ip = "127.0.0.1";
+    private static final int port = 18080;
+    private static final String ip = "127.0.0.1";
 
     @BeforeClass
     public static void beforeClass() {

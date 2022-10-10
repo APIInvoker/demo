@@ -1,5 +1,6 @@
 package cn.how2j.diytomcat;
 
+import cn.how2j.diytomcat.catalina.Context;
 import cn.how2j.diytomcat.http.Request;
 import cn.how2j.diytomcat.http.Response;
 import cn.how2j.diytomcat.util.Constant;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -23,13 +25,17 @@ import java.util.Set;
 /**
  * 自定义的Tomcat
  *
- * @since 2022/10/8 22:42
  * @author Zheng Xin
+ * @since 2022/10/8 22:42
  */
 public class Bootstrap {
+    public static Map<String, Context> contextMap = new HashMap<>();
+
     public static void main(String[] args) {
         try {
             logJVM();
+            // 扫描 webapps文件夹下的目录，加载为contextMap
+            scanContextsOnWebAppsFolder();
             int port = 18080;
             try (ServerSocket ss = new ServerSocket(port)) {
                 while (true) {
@@ -42,14 +48,17 @@ public class Bootstrap {
                             if (null == uri) {
                                 return;
                             }
-                            System.out.println("uri:" + request.getUri());
+                            System.out.println("uri:" + uri);
+
+                            Context context = request.getContext();
+
                             Response response = new Response();
                             if ("/".equals(uri)) {
                                 String html = "Hello DIY Tomcat from how2j.cn";
                                 response.getWriter().println(html);
                             } else {
                                 String fileName = StrUtil.removePrefix(uri, "/");
-                                File file = FileUtil.file(Constant.rootFolder, fileName);
+                                File file = FileUtil.file(context.getDocBase(), fileName);
                                 if (file.exists()) {
                                     String fileContent = FileUtil.readUtf8String(file);
                                     response.getWriter().println(fileContent);
@@ -74,6 +83,9 @@ public class Bootstrap {
         }
     }
 
+    /**
+     * 打印系统信息
+     */
     private static void logJVM() {
         Map<String, String> infos = new LinkedHashMap<>();
         infos.put("Server version", "How2J DiyTomcat/1.0.1");
@@ -92,6 +104,13 @@ public class Bootstrap {
         }
     }
 
+    /**
+     * 处理200返回
+     *
+     * @param s
+     * @param response
+     * @throws IOException
+     */
     private static void handle200(Socket s, Response response) throws IOException {
         String contentType = response.getContentType();
         String headText = Constant.response_head_202;
@@ -107,5 +126,28 @@ public class Bootstrap {
         OutputStream os = s.getOutputStream();
         os.write(responseBytes);
         s.close();
+    }
+
+    /**
+     * 扫描 webapps文件夹下的目录，加载为contextMap
+     */
+    private static void scanContextsOnWebAppsFolder() {
+        File[] folders = Constant.webappsFolder.listFiles();
+        for (File folder : folders) {
+            if (!folder.isDirectory())
+                continue;
+            loadContext(folder);
+        }
+    }
+
+    private static void loadContext(File folder) {
+        String path = folder.getName();
+        if ("ROOT".equals(path))
+            path = "/";
+        else
+            path = "/" + path;
+        String docBase = folder.getAbsolutePath();
+        Context context = new Context(path, docBase);
+        contextMap.put(context.getPath(), context);
     }
 }
