@@ -42,7 +42,7 @@ public class TestHtml {
     }
 
     @Test
-    public void testaHtml() {
+    public void testHtml() {
         String html = getContentString("/a.html");
         Assert.assertEquals(html, "Hello DIY Tomcat from a.html");
     }
