@@ -4,6 +4,7 @@ import cn.how2j.diytomcat.catalina.Context;
 import cn.how2j.diytomcat.http.Request;
 import cn.how2j.diytomcat.http.Response;
 import cn.how2j.diytomcat.util.Constant;
+import cn.how2j.diytomcat.util.ServerXMLUtil;
 import cn.how2j.diytomcat.util.ThreadPoolUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.thread.ThreadUtil;
@@ -17,10 +18,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 自定义的Tomcat
@@ -36,6 +34,8 @@ public class Bootstrap {
             logJVM();
             // 扫描 webapps文件夹下的目录，加载为contextMap
             scanContextsOnWebAppsFolder();
+            // 扫描xml文件中配置的context
+            scanContextsInServerXML();
             int port = 18080;
             try (ServerSocket ss = new ServerSocket(port)) {
                 while (true) {
@@ -149,5 +149,12 @@ public class Bootstrap {
         String docBase = folder.getAbsolutePath();
         Context context = new Context(path, docBase);
         contextMap.put(context.getPath(), context);
+    }
+
+    private static void scanContextsInServerXML() {
+        List<Context> contexts = ServerXMLUtil.getContexts();
+        for (Context context : contexts) {
+            contextMap.put(context.getPath(), context);
+        }
     }
 }

@@ -11,7 +11,6 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
 public class Request {
-
     private String requestString;
     private String uri;
     private Socket socket;

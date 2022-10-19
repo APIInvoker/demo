@@ -28,7 +28,7 @@ public class TestTomcat {
         new Thread(() -> Bootstrap.main(args)).start();
 
         try {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -70,9 +70,15 @@ public class TestTomcat {
     }
 
     @Test
-    public void testIndex() {
+    public void testAIndex() {
         String html = getContentString("/a/index.html");
-        Assert.assertEquals(html,"Hello DIY Tomcat from index.html@a");
+        Assert.assertEquals(html, "Hello DIY Tomcat from index.html@a");
+    }
+
+    @Test
+    public void testBIndex() {
+        String html = getContentString("/b/index.html");
+        Assert.assertEquals(html, "Hello DIY Tomcat from index.html@b");
     }
 
     private String getContentString(String uri) {

@@ -5,7 +5,6 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 
 public class Response {
-
     private StringWriter stringWriter;
     private PrintWriter writer;
     private String contentType;
