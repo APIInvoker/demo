@@ -1,10 +1,10 @@
 package cn.how2j.diytomcat;
 
 import cn.how2j.diytomcat.catalina.Context;
+import cn.how2j.diytomcat.catalina.Host;
 import cn.how2j.diytomcat.http.Request;
 import cn.how2j.diytomcat.http.Response;
 import cn.how2j.diytomcat.util.Constant;
-import cn.how2j.diytomcat.util.ServerXMLUtil;
 import cn.how2j.diytomcat.util.ThreadPoolUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.thread.ThreadUtil;
@@ -18,7 +18,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 自定义的Tomcat
@@ -32,26 +35,21 @@ public class Bootstrap {
     public static void main(String[] args) {
         try {
             logJVM();
-            // 扫描 webapps文件夹下的目录，加载为contextMap
-            scanContextsOnWebAppsFolder();
-            // 扫描xml文件中配置的context
-            scanContextsInServerXML();
+            Host host = new Host();
             int port = 18080;
             try (ServerSocket ss = new ServerSocket(port)) {
                 while (true) {
-                    Socket s = ss.accept();
+                    Socket socket = ss.accept();
                     Runnable r = () -> {
                         try {
-                            Request request = new Request(s);
+                            Request request = new Request(socket, host);
                             String uri = request.getUri();
                             // 跳过因TestTomcat中NetUtil.isUsableLocalPort()方法产生的一个空连接
                             if (null == uri) {
                                 return;
                             }
                             System.out.println("uri:" + uri);
-
                             Context context = request.getContext();
-
                             Response response = new Response();
                             if ("/".equals(uri)) {
                                 String html = "Hello DIY Tomcat from how2j.cn";
@@ -69,7 +67,7 @@ public class Bootstrap {
                                     response.getWriter().println("File Not Found");
                                 }
                             }
-                            handle200(s, response);
+                            handle200(socket, response);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -97,7 +95,6 @@ public class Bootstrap {
         infos.put("Java Home", SystemUtil.get("java.home"));
         infos.put("JVM Version", SystemUtil.get("java.runtime.version"));
         infos.put("JVM Vendor", SystemUtil.get("java.vm.specification.vendor"));
-
         Set<String> keys = infos.keySet();
         for (String key : keys) {
             LogFactory.get().info(key + ":\t\t" + infos.get(key));
@@ -116,45 +113,12 @@ public class Bootstrap {
         String headText = Constant.response_head_202;
         headText = StrUtil.format(headText, contentType);
         byte[] head = headText.getBytes();
-
         byte[] body = response.getBody();
-
         byte[] responseBytes = new byte[head.length + body.length];
         ArrayUtil.copy(head, 0, responseBytes, 0, head.length);
         ArrayUtil.copy(body, 0, responseBytes, head.length, body.length);
-
         OutputStream os = s.getOutputStream();
         os.write(responseBytes);
         s.close();
-    }
-
-    /**
-     * 扫描 webapps文件夹下的目录，加载为contextMap
-     */
-    private static void scanContextsOnWebAppsFolder() {
-        File[] folders = Constant.webappsFolder.listFiles();
-        for (File folder : folders) {
-            if (!folder.isDirectory())
-                continue;
-            loadContext(folder);
-        }
-    }
-
-    private static void loadContext(File folder) {
-        String path = folder.getName();
-        if ("ROOT".equals(path))
-            path = "/";
-        else
-            path = "/" + path;
-        String docBase = folder.getAbsolutePath();
-        Context context = new Context(path, docBase);
-        contextMap.put(context.getPath(), context);
-    }
-
-    private static void scanContextsInServerXML() {
-        List<Context> contexts = ServerXMLUtil.getContexts();
-        for (Context context : contexts) {
-            contextMap.put(context.getPath(), context);
-        }
     }
 }
