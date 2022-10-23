@@ -1,8 +1,7 @@
 package cn.how2j.diytomcat.http;
 
-import cn.how2j.diytomcat.Bootstrap;
 import cn.how2j.diytomcat.catalina.Context;
-import cn.how2j.diytomcat.catalina.Host;
+import cn.how2j.diytomcat.catalina.Engine;
 import cn.how2j.diytomcat.util.MiniBrowser;
 import cn.hutool.core.util.StrUtil;
 
@@ -16,11 +15,11 @@ public class Request {
     private String uri;
     private Socket socket;
     private Context context;
-    private Host host;
+    private Engine engine;
 
-    public Request(Socket socket, Host host) throws IOException {
+    public Request(Socket socket, Engine engine) throws IOException {
         this.socket = socket;
-        this.host = host;
+        this.engine = engine;
         parseHttpRequest();
         if (StrUtil.isEmpty(requestString))
             return;
@@ -38,7 +37,6 @@ public class Request {
 
     private void parseUri() {
         String temp;
-
         temp = StrUtil.subBetween(requestString, " ", " ");
         if (!StrUtil.contains(temp, '?')) {
             uri = temp;
@@ -50,13 +48,15 @@ public class Request {
 
     private void parseContext() {
         String path = StrUtil.subBetween(uri, "/", "/");
-        if (null == path)
+        if (null == path) {
             path = "/";
-        else
+        } else {
             path = "/" + path;
-        context = host.getContext(path);
-        if (null == context)
-            context = Bootstrap.contextMap.get("/");
+        }
+        context = engine.getDefaultHost().getContext(path);
+        if (null == context) {
+            context = engine.getDefaultHost().getContext("/");
+        }
     }
 
     public String getUri() {
