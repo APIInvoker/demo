@@ -1,8 +1,7 @@
 package cn.how2j.diytomcat;
 
 import cn.how2j.diytomcat.catalina.Context;
-import cn.how2j.diytomcat.catalina.Engine;
-import cn.how2j.diytomcat.catalina.Host;
+import cn.how2j.diytomcat.catalina.Service;
 import cn.how2j.diytomcat.http.Request;
 import cn.how2j.diytomcat.http.Response;
 import cn.how2j.diytomcat.util.Constant;
@@ -31,19 +30,17 @@ import java.util.Set;
  * @since 2022/10/8 22:42
  */
 public class Bootstrap {
-    public static Map<String, Context> contextMap = new HashMap<>();
-
     public static void main(String[] args) {
         try {
             logJVM();
-            Engine engine = new Engine();
+            Service service = new Service();
             int port = 18080;
             try (ServerSocket ss = new ServerSocket(port)) {
                 while (true) {
                     Socket socket = ss.accept();
                     Runnable r = () -> {
                         try {
-                            Request request = new Request(socket, engine);
+                            Request request = new Request(socket, service);
                             String uri = request.getUri();
                             // 跳过因TestTomcat中NetUtil.isUsableLocalPort()方法产生的一个空连接
                             if (null == uri) {

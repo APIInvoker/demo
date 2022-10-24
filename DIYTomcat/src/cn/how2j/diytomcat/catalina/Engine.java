@@ -4,11 +4,17 @@ import cn.how2j.diytomcat.util.ServerXMLUtil;
 
 import java.util.List;
 
+/**
+ * @author Zheng Xin
+ * @since 2022/10/23
+ */
 public class Engine {
     private String defaultHost;
     private List<Host> hosts;
+    private Service service;
 
-    public Engine() {
+    public Engine(Service service) {
+        this.service = service;
         this.defaultHost = ServerXMLUtil.getEngineDefaultHost();
         this.hosts = ServerXMLUtil.getHosts(this);
         checkDefault();

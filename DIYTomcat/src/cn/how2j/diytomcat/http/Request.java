@@ -2,6 +2,7 @@ package cn.how2j.diytomcat.http;
 
 import cn.how2j.diytomcat.catalina.Context;
 import cn.how2j.diytomcat.catalina.Engine;
+import cn.how2j.diytomcat.catalina.Service;
 import cn.how2j.diytomcat.util.MiniBrowser;
 import cn.hutool.core.util.StrUtil;
 
@@ -15,14 +16,15 @@ public class Request {
     private String uri;
     private Socket socket;
     private Context context;
-    private Engine engine;
+    private Service service;
 
-    public Request(Socket socket, Engine engine) throws IOException {
+    public Request(Socket socket, Service service) throws IOException {
         this.socket = socket;
-        this.engine = engine;
+        this.service = service;
         parseHttpRequest();
-        if (StrUtil.isEmpty(requestString))
+        if (StrUtil.isEmpty(requestString)) {
             return;
+        }
         parseUri();
         parseContext();
         if (!"/".equals(context.getPath()))
@@ -53,9 +55,9 @@ public class Request {
         } else {
             path = "/" + path;
         }
-        context = engine.getDefaultHost().getContext(path);
+        context = service.getEngine().getDefaultHost().getContext(path);
         if (null == context) {
-            context = engine.getDefaultHost().getContext("/");
+            context = service.getEngine().getDefaultHost().getContext("/");
         }
     }
 
