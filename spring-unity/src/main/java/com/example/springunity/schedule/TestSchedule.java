@@ -1,5 +1,6 @@
 package com.example.springunity.schedule;
 
+import com.example.springunity.annotation.TraceIdLog;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class TestSchedule {
-    @Scheduled(cron = "* * 1 * * ?")
+    @TraceIdLog
+    @Scheduled(cron = "0/3 * * * * ?")
     public void task1() {
         log.info("task1 infotask1");
         log.error("task1 errortask1");

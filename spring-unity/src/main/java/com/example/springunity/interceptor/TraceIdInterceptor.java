@@ -1,5 +1,6 @@
 package com.example.springunity.interceptor;
 
+import com.example.springunity.util.TraceIdUtil;
 import org.slf4j.MDC;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -15,11 +16,7 @@ import java.util.UUID;
 public class TraceIdInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull Object handler) {
-        MDC.put("traceId", getTraceId() + " | ");
+        MDC.put("traceId", TraceIdUtil.getTraceId() + " | ");
         return true;
-    }
-
-    private String getTraceId() {
-        return UUID.randomUUID().toString().replace("-", "").substring(0, 16);
     }
 }
