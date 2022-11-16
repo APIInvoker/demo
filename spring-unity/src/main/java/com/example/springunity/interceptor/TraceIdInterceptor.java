@@ -15,8 +15,7 @@ import java.util.UUID;
 public class TraceIdInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull Object handler) {
-        MDC.put("traceId", getTraceId());
-        MDC.put("split", " | ");
+        MDC.put("traceId", getTraceId() + " | ");
         return true;
     }
 
