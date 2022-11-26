@@ -1,4 +1,4 @@
-package com.example.springunity.pojo.dto;
+package com.example.springunity.controller.vo;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;

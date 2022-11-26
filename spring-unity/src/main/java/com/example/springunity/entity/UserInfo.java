@@ -1,16 +1,19 @@
-package com.example.springunity.pojo;
+package com.example.springunity.entity;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import lombok.Data;
 
 /**
- * 用户信息表
+ * 用户信息
+ *
  * @TableName dev_user_info
  */
 @Data
-public class UserInfoDO implements Serializable {
+public class UserInfo implements Serializable {
     /**
      * 主键
      */
@@ -29,15 +32,22 @@ public class UserInfoDO implements Serializable {
     /**
      * 生日
      */
+    @JsonFormat(pattern = "yyyy", timezone = "GMT+8")
     private Date birthday;
 
     /**
-     * 性别：1-男，2-女，3-未知
+     * 性别，0-女，1-男，3-未知
      */
     private Integer sex;
 
     /**
-     * 用户年龄
+     * 出生年份
+     */
+    @JsonFormat(pattern = "yyyy", timezone = "GMT+8")
+    private Date bornYear;
+
+    /**
+     * 年龄
      */
     private Integer age;
 
@@ -54,12 +64,14 @@ public class UserInfoDO implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Date gmtCreate;
 
     /**
-     * 修改时间
+     * 更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Date gmtModified;
 
-    private static final long serialVersionUID = 3418003266406894786L;
+    private static final long serialVersionUID = 8916921333462460596L;
 }

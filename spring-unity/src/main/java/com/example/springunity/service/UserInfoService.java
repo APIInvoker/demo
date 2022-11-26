@@ -1,8 +1,7 @@
 package com.example.springunity.service;
 
-import com.example.springunity.pojo.dto.UserInfoDTO;
-
-import java.util.List;
+import com.example.springunity.entity.UserInfo;
+import com.github.pagehelper.PageInfo;
 
 /**
  * @Author zx
@@ -10,5 +9,5 @@ import java.util.List;
  * @Date  2022-08-16 23:03:28
  */
 public interface UserInfoService {
-    List<UserInfoDTO> queryUserByCondition(UserInfoDTO userInfoDTO);
+    PageInfo<UserInfo> pageQuery();
 }

@@ -2,7 +2,7 @@ package com.example.springunity.advice;
 
 import com.example.springunity.enums.ResponseCode;
 import com.example.springunity.exception.APIException;
-import com.example.springunity.pojo.vo.ResponseVO;
+import com.example.springunity.controller.vo.ResponseVO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;

@@ -1,14 +1,13 @@
 package com.example.springunity.service.impl;
 
 import com.example.springunity.mapper.UserInfoMapper;
-import com.example.springunity.pojo.UserInfoDO;
-import com.example.springunity.pojo.dto.UserInfoDTO;
+import com.example.springunity.entity.UserInfo;
 import com.example.springunity.service.UserInfoService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,28 +21,9 @@ public class UserInfoServiceImpl implements UserInfoService {
     private UserInfoMapper userInfoMapper;
 
     @Override
-    public List<UserInfoDTO> queryUserByCondition(UserInfoDTO userInfoDTO) {
-        UserInfoDO userInfoDO = new UserInfoDO();
-        userInfoDO.setNickName(userInfoDTO.getNickName());
-        userInfoDO.setSex(userInfoDTO.getSex());
-        userInfoDO.setAge(userInfoDTO.getAge());
-        userInfoDO.setBirthday(userInfoDTO.getBirthday());
-        Long income = userInfoDTO.getIncome();
-        if (income != null) {
-            userInfoDO.setIncome(new BigDecimal(userInfoDTO.getIncome()));
-        }
-        List<UserInfoDO> userInfoDOList = userInfoMapper.selectByCondition(userInfoDO);
-        List<UserInfoDTO> userInfoDTOList = new ArrayList<>();
-        UserInfoDTO dto = new UserInfoDTO();
-        userInfoDOList.forEach(o -> {
-            dto.setUserId(o.getUserId());
-            dto.setNickName(o.getNickName());
-            dto.setSex(o.getSex());
-            dto.setAge(o.getAge());
-            dto.setBirthday(o.getBirthday());
-            dto.setIncome(o.getIncome().longValue());
-            userInfoDTOList.add(dto);
-        });
-        return userInfoDTOList;
+    public PageInfo<UserInfo> pageQuery() {
+        PageHelper.startPage(0, 10);
+        List<UserInfo> userInfoList = userInfoMapper.selectAll();
+        return new PageInfo<>(userInfoList);
     }
 }

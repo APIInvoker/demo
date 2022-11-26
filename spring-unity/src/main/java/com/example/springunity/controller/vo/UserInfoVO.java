@@ -1,4 +1,4 @@
-package com.example.springunity.pojo.vo;
+package com.example.springunity.controller.vo;
 
 import lombok.Data;
 

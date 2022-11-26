@@ -4,10 +4,10 @@ spring:
   application:
     name: spring-unity
   datasource:
-    url: jdbc:postgresql://192.168.50.137:5432/dev
-    username: postgres
+    url: jdbc:mysql://127.0.0.1:3306/dev
+    username: root
     password: adminadmin
-    driver-class-name: org.postgresql.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
     host: 192.168.50.137
     port: 6379
