@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springunity.mapper.UserInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.springunity.entity.UserInfo">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+            <result property="birthday" column="birthday" jdbcType="DATE"/>
+            <result property="sex" column="sex" jdbcType="TINYINT"/>
+            <result property="bornYear" column="born_year" jdbcType="OTHER"/>
+            <result property="age" column="age" jdbcType="TINYINT"/>
+            <result property="income" column="income" jdbcType="DECIMAL"/>
+            <result property="deleted" column="is_deleted" jdbcType="TINYINT"/>
+            <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+            <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,user_id,nick_name,
+        birthday,sex,born_year,
+        age,income,is_deleted,
+        gmt_create,gmt_modified
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from dev_user_info
+        where  id = #{id,jdbcType=BIGINT} 
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from dev_user_info
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from dev_user_info
+        where  id = #{id,jdbcType=BIGINT} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.springunity.entity.UserInfo" useGeneratedKeys="true">
+        insert into dev_user_info
+        ( id,user_id,nick_name
+        ,birthday,sex,born_year
+        ,age,income,is_deleted
+        ,gmt_create,gmt_modified)
+        values (#{id,jdbcType=BIGINT},#{userId,jdbcType=BIGINT},#{nickName,jdbcType=VARCHAR}
+        ,#{birthday,jdbcType=DATE},#{sex,jdbcType=TINYINT},#{bornYear,jdbcType=OTHER}
+        ,#{age,jdbcType=TINYINT},#{income,jdbcType=DECIMAL},#{isDeleted,jdbcType=TINYINT}
+        ,#{gmtCreate,jdbcType=TIMESTAMP},#{gmtModified,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.springunity.entity.UserInfo" useGeneratedKeys="true">
+        insert into dev_user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="userId != null">user_id,</if>
+                <if test="nickName != null">nick_name,</if>
+                <if test="birthday != null">birthday,</if>
+                <if test="sex != null">sex,</if>
+                <if test="bornYear != null">born_year,</if>
+                <if test="age != null">age,</if>
+                <if test="income != null">income,</if>
+                <if test="isDeleted != null">is_deleted,</if>
+                <if test="gmtCreate != null">gmt_create,</if>
+                <if test="gmtModified != null">gmt_modified,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=BIGINT},</if>
+                <if test="userId != null">#{userId,jdbcType=BIGINT},</if>
+                <if test="nickName != null">#{nickName,jdbcType=VARCHAR},</if>
+                <if test="birthday != null">#{birthday,jdbcType=DATE},</if>
+                <if test="sex != null">#{sex,jdbcType=TINYINT},</if>
+                <if test="bornYear != null">#{bornYear,jdbcType=OTHER},</if>
+                <if test="age != null">#{age,jdbcType=TINYINT},</if>
+                <if test="income != null">#{income,jdbcType=DECIMAL},</if>
+                <if test="isDeleted != null">#{isDeleted,jdbcType=TINYINT},</if>
+                <if test="gmtCreate != null">#{gmtCreate,jdbcType=TIMESTAMP},</if>
+                <if test="gmtModified != null">#{gmtModified,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.springunity.entity.UserInfo">
+        update dev_user_info
+        <set>
+                <if test="userId != null">
+                    user_id = #{userId,jdbcType=BIGINT},
+                </if>
+                <if test="nickName != null">
+                    nick_name = #{nickName,jdbcType=VARCHAR},
+                </if>
+                <if test="birthday != null">
+                    birthday = #{birthday,jdbcType=DATE},
+                </if>
+                <if test="sex != null">
+                    sex = #{sex,jdbcType=TINYINT},
+                </if>
+                <if test="bornYear != null">
+                    born_year = #{bornYear,jdbcType=OTHER},
+                </if>
+                <if test="age != null">
+                    age = #{age,jdbcType=TINYINT},
+                </if>
+                <if test="income != null">
+                    income = #{income,jdbcType=DECIMAL},
+                </if>
+                <if test="isDeleted != null">
+                    is_deleted = #{isDeleted,jdbcType=TINYINT},
+                </if>
+                <if test="gmtCreate != null">
+                    gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+                </if>
+                <if test="gmtModified != null">
+                    gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=BIGINT} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.springunity.entity.UserInfo">
+        update dev_user_info
+        set 
+            user_id =  #{userId,jdbcType=BIGINT},
+            nick_name =  #{nickName,jdbcType=VARCHAR},
+            birthday =  #{birthday,jdbcType=DATE},
+            sex =  #{sex,jdbcType=TINYINT},
+            born_year =  #{bornYear,jdbcType=OTHER},
+            age =  #{age,jdbcType=TINYINT},
+            income =  #{income,jdbcType=DECIMAL},
+            is_deleted =  #{isDeleted,jdbcType=TINYINT},
+            gmt_create =  #{gmtCreate,jdbcType=TIMESTAMP},
+            gmt_modified =  #{gmtModified,jdbcType=TIMESTAMP}
+        where   id = #{id,jdbcType=BIGINT} 
+    </update>
+</mapper>
