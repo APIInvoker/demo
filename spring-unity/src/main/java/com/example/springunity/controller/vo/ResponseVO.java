@@ -5,7 +5,7 @@ import com.example.springunity.enums.ResponseCode;
 import java.util.Objects;
 
 /**
- * @Author zhengxin
+ * @Author zx
  * @Date 2022/7/18 11:13
  */
 public class ResponseVO {

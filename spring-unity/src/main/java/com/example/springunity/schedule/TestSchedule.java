@@ -6,7 +6,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
- * @Author zhengxin
+ * @Author zx
  * @Date 2022/7/20 9:48
  */
 @Component

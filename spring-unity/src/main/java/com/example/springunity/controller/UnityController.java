@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Author zhengxin
+ * @Author zx
  * @Date 2022/7/18 11:24
  */
 @RestController
@@ -50,7 +50,7 @@ public class UnityController {
     @RequestMapping("redis")
     public void redis() {
         System.out.println(redisTemplate.opsForValue().get("name"));
-        redisTemplate.opsForValue().set("name", "zhengxin", 60L, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().set("name", "zx", 60L, TimeUnit.SECONDS);
         System.out.println(redisTemplate.opsForValue().get("name"));
         System.out.println("name expire " + redisTemplate.getExpire("name"));
     }
