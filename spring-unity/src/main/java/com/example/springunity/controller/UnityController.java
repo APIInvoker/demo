@@ -5,6 +5,8 @@ import com.example.springunity.entity.UserInfo;
 import com.example.springunity.controller.vo.ResponseVO;
 import com.example.springunity.service.UserInfoService;
 import com.example.springunity.util.HttpUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -56,7 +58,9 @@ public class UnityController {
     }
 
     @GetMapping("pageUserInfo")
-    public PageInfo<UserInfo> queryUserInfo() {
-        return userInfoService.pageQuery();
+    public PageInfo<UserInfo> queryUserInfo() throws JsonProcessingException {
+        PageInfo<UserInfo> userInfoPageInfo = userInfoService.pageQuery();
+        log.info(new ObjectMapper().writeValueAsString(userInfoPageInfo));
+        return userInfoPageInfo;
     }
 }
