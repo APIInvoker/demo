@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @Author zx
+ * @author zx
  * @Date 2022/9/25 4:30
  */
 public class HeroController implements Controller {

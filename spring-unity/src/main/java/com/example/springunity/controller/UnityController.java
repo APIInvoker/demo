@@ -1,18 +1,14 @@
 package com.example.springunity.controller;
 
 import com.example.springunity.annotation.NotControllerResponseAdvice;
-import com.example.springunity.entity.UserInfo;
-import com.example.springunity.controller.vo.ResponseVO;
+import com.example.springunity.controller.vo.UserInfoVO;
+import com.example.springunity.controller.vo.common.ResponseVO;
 import com.example.springunity.service.UserInfoService;
 import com.example.springunity.util.HttpUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
@@ -58,9 +54,13 @@ public class UnityController {
     }
 
     @GetMapping("pageUserInfo")
-    public PageInfo<UserInfo> queryUserInfo() throws JsonProcessingException {
-        PageInfo<UserInfo> userInfoPageInfo = userInfoService.pageQuery();
-        log.info(new ObjectMapper().writeValueAsString(userInfoPageInfo));
-        return userInfoPageInfo;
+    public PageInfo<UserInfoVO> queryUserInfo(UserInfoVO userInfoVO) {
+        return userInfoService.pageQuery(userInfoVO);
+    }
+
+    @PostMapping("saveUserInfo")
+    public ResponseVO insertUserInfo(@RequestBody UserInfoVO userInfoVO) {
+        userInfoService.saveUserInfo(userInfoVO);
+        return new ResponseVO("保存成功");
     }
 }

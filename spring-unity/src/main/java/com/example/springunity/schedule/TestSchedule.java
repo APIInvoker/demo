@@ -6,14 +6,14 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 /**
- * @Author zx
+ * @author zx
  * @Date 2022/7/20 9:48
  */
 @Component
 @Slf4j
 public class TestSchedule {
     @TraceIdLog
-    @Scheduled(cron = "0/3 * * * * ?")
+    @Scheduled(cron = "* * * 3 * ?")
     public void task1() {
         log.info("task1 infotask1");
         log.error("task1 errortask1");

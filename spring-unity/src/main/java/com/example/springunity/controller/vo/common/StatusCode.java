@@ -1,7 +1,7 @@
-package com.example.springunity.controller.vo;
+package com.example.springunity.controller.vo.common;
 
 /**
- * @Author zx
+ * @author zx
  * @Date 2022/7/18 11:13
  */
 public interface StatusCode {

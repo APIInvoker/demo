@@ -1,6 +1,6 @@
 package com.example.springunity.enums;
 
-import com.example.springunity.controller.vo.StatusCode;
+import com.example.springunity.controller.vo.common.StatusCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

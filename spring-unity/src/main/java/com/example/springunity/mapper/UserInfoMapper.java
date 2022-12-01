@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 /**
-* @author zx
-* @description 针对表【dev_user_info(用户信息)】的数据库操作Mapper
-* @createDate 2022-11-23 19:21:00
-* @Entity com.example.springunity.entity.UserInfo
-*/
+ * @author zx
+ * @description 针对表【dev_user_info(用户信息)】的数据库操作Mapper
+ * @createDate 2022-11-30 11:40:15
+ * @Entity com.example.springunity.entity.UserInfo
+ */
 @Mapper
 public interface UserInfoMapper {
 
@@ -26,6 +26,5 @@ public interface UserInfoMapper {
 
     int updateByPrimaryKey(UserInfo record);
 
-    List<UserInfo> selectAll();
-
+    List<UserInfo> selectAll(UserInfo userInfo);
 }
