@@ -3,19 +3,24 @@ package com.example.springunity.controller;
 import com.example.springunity.annotation.NotControllerResponseAdvice;
 import com.example.springunity.controller.vo.UserInfoVO;
 import com.example.springunity.controller.vo.common.ResponseVO;
+import com.example.springunity.enums.AppCode;
+import com.example.springunity.exception.APIException;
 import com.example.springunity.service.UserInfoService;
 import com.example.springunity.util.HttpUtil;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Author zx
- * @Date 2022/7/18 11:24
+ * @author zx
+ * @since 2022/7/18 11:24
  */
 @RestController
 @RequestMapping("/")
@@ -53,14 +58,30 @@ public class UnityController {
         System.out.println("name expire " + redisTemplate.getExpire("name"));
     }
 
-    @GetMapping("pageUserInfo")
+    @GetMapping(value = "pageUserInfo", name = "分页查询")
     public PageInfo<UserInfoVO> queryUserInfo(UserInfoVO userInfoVO) {
+        log.info("分页查询开始");
         return userInfoService.pageQuery(userInfoVO);
     }
 
-    @PostMapping("saveUserInfo")
+    @PostMapping(value = "saveUserInfo",name = "保存用户信息")
     public ResponseVO insertUserInfo(@RequestBody UserInfoVO userInfoVO) {
+        log.info("保存用户信息开始");
         userInfoService.saveUserInfo(userInfoVO);
         return new ResponseVO("保存成功");
+    }
+
+    @PostMapping(value = "upload", name = "文件上传")
+    public ResponseVO upload(@RequestParam("file") MultipartFile file) throws IOException {
+        File dir = new File("spring-unity/src/main/resources/upload");
+        if (!dir.exists()) {
+            if (!dir.mkdirs()) {
+                throw new APIException(AppCode.APP_ERROR, "创建文件夹失败");
+            }
+        }
+        String absolutePath = dir.getAbsolutePath();
+        String separator = File.separator;
+        file.transferTo(new File(absolutePath + separator + file.getName() + ".txt"));
+        return new ResponseVO("上传完成！文件名：" + file.getName() + ".txt");
     }
 }
