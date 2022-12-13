@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 该Controller在applicationContext.xml中配置，作用等同于@Controller
+ *
  * @author zx
  * @since 2022/9/25 4:30
  */

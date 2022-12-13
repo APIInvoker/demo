@@ -31,6 +31,6 @@ public class TestController {
 
     @GetMapping("html.do")
     public void html(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/static/test.html").forward(request,response);
+        request.getRequestDispatcher("/static/test.html").forward(request, response);
     }
 }
