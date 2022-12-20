@@ -29,8 +29,13 @@ public class TestController {
         return "user/test";
     }
 
-    @GetMapping("html.do")
+    @GetMapping(value = "html.do", name = "请求转发")
     public void html(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("/static/test.html").forward(request, response);
+    }
+
+    @GetMapping(value = "redirect.do",name = "重定向")
+    public void redirect(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect("http://localhost:6002/test/test.do");
     }
 }

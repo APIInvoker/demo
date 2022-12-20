@@ -17,9 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 public class HeroController implements Controller {
     @Override
     public ModelAndView handleRequest(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response) {
-        ModelAndView mv = new ModelAndView();
+        // 默认使用请求转发
+        ModelAndView mv = new ModelAndView("hero");
         mv.addObject("hero","Invoker");
-        mv.setViewName("hero");
         return mv;
     }
 }
