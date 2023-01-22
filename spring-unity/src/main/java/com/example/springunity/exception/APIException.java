@@ -1,7 +1,7 @@
 package com.example.springunity.exception;
 
-import com.example.springunity.enums.AppCode;
-import com.example.springunity.controller.vo.common.StatusCode;
+import com.example.controller.StatusCode;
+import com.example.enums.AppCode;
 import lombok.Getter;
 
 @Getter

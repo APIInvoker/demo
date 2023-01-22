@@ -21,12 +21,14 @@ import java.util.Random;
  * @since 2022-08-16 23:03:28
  */
 @Service("userInfoService")
+@Slf4j
 public class UserInfoServiceImpl implements UserInfoService {
     @Resource
     private UserInfoMapper userInfoMapper;
 
     @Override
     public PageInfo<UserInfoVO> pageQuery(UserInfoVO userInfoVO) {
+        log.info("pageQuery");
         UserInfo userInfo = new UserInfo();
         userInfo.setNickName(userInfoVO.getNickName());
         PageHelper.startPage(userInfoVO.getPageNum(), userInfoVO.getPageSize());

@@ -1,12 +1,12 @@
 package com.example.springunity.controller;
 
-import com.example.springunity.annotation.NotControllerResponseAdvice;
+import com.example.annotation.UnifiedResponse;
 import com.example.springunity.controller.vo.UserInfoVO;
-import com.example.springunity.controller.vo.common.ResponseVO;
-import com.example.springunity.enums.AppCode;
+import com.example.controller.ResponseVO;
+import com.example.enums.AppCode;
 import com.example.springunity.exception.APIException;
 import com.example.springunity.service.UserInfoService;
-import com.example.springunity.util.HttpUtil;
+import com.example.util.HttpUtil;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -32,7 +32,7 @@ public class UnityController {
     private UserInfoService userInfoService;
 
     @GetMapping("/heart")
-    @NotControllerResponseAdvice
+    @UnifiedResponse
     public String health() {
         log.info("heart");
         log.error("heart");
@@ -64,7 +64,7 @@ public class UnityController {
         return userInfoService.pageQuery(userInfoVO);
     }
 
-    @PostMapping(value = "saveUserInfo",name = "保存用户信息")
+    @PostMapping(value = "saveUserInfo", name = "保存用户信息")
     public ResponseVO insertUserInfo(@RequestBody UserInfoVO userInfoVO) {
         log.info("保存用户信息开始");
         userInfoService.saveUserInfo(userInfoVO);

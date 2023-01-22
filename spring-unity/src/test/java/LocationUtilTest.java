@@ -1,5 +1,5 @@
 import com.example.springunity.SpringUnityApplication;
-import com.example.springunity.util.LocationUtil;
+import com.example.util.LocationUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
