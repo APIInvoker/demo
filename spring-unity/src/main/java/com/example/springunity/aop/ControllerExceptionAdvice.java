@@ -2,7 +2,7 @@ package com.example.springunity.aop;
 
 import com.example.controller.ResponseVO;
 import com.example.enums.ResponseCode;
-import com.example.springunity.exception.APIException;
+import com.example.exception.APIException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;

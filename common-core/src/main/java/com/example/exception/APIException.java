@@ -1,4 +1,4 @@
-package com.example.springunity.exception;
+package com.example.exception;
 
 import com.example.controller.StatusCode;
 import com.example.enums.AppCode;

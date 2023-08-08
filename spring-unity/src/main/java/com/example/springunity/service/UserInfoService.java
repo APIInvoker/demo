@@ -1,6 +1,7 @@
 package com.example.springunity.service;
 
-import com.example.springunity.controller.vo.UserInfoVO;
+import com.example.springunity.controller.UnityController;
+import com.example.springunity.mapper.entity.wrapper.UserInfoWrapper;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -9,7 +10,5 @@ import com.github.pagehelper.PageInfo;
  * @since 2022-08-16 23:03:28
  */
 public interface UserInfoService {
-    PageInfo<UserInfoVO> pageQuery(UserInfoVO userInfoVO);
-
-    void saveUserInfo(UserInfoVO userInfoVO);
+    PageInfo<UserInfoWrapper> pageQuery(UnityController.UserInfoCondition UserInfoCondition);
 }

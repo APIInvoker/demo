@@ -3,7 +3,7 @@ package com.example.springunity.aop;
 import com.example.annotation.UnifiedResponse;
 import com.example.controller.ResponseVO;
 import com.example.enums.ResponseCode;
-import com.example.springunity.exception.APIException;
+import com.example.exception.APIException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;

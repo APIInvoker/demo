@@ -1,80 +1,55 @@
-package com.example.springunity.controller.vo;
-
-import com.example.springunity.mapper.entity.wrapper.UserInfoWrapper;
-import com.fasterxml.jackson.annotation.JsonFormat;
+package com.example.springunity.mapper.entity;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 用户信息
+ *
+ * @TableName dev_user_info
  */
-public class UserInfoVO implements Serializable {
-    private static final long serialVersionUID = 8190511907753965299L;
-
-    public static UserInfoVO build(UserInfoWrapper wrapper) {
-        UserInfoVO userInfoVO = new UserInfoVO();
-        userInfoVO.setId(wrapper.getId());
-        userInfoVO.setGmtCreate(wrapper.getGmtCreate());
-        userInfoVO.setGmtModified(wrapper.getGmtModified());
-        userInfoVO.setUserId(wrapper.getUserId());
-        userInfoVO.setNickName(wrapper.getNickName());
-        userInfoVO.setSex(wrapper.getSex());
-        userInfoVO.setBornYear(wrapper.getBornYear());
-        userInfoVO.setAge(wrapper.getAge());
-        userInfoVO.setBirthday(wrapper.getBirthday());
-        userInfoVO.setIncome(wrapper.getIncome());
-        return userInfoVO;
-    }
-
+public class UserInfo implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
-     * 主键id
+     * 主键
      */
     private Long id;
-
     /**
      * 创建时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss SSS")
     private Date gmtCreate;
-
     /**
-     * 修改时间
+     * 更新时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss SSS")
     private Date gmtModified;
-
+    /**
+     * 是否删除
+     */
+    private Integer deleted;
     /**
      * 用户id
      */
     private Long userId;
-
     /**
      * 昵称
      */
     private String nickName;
-
     /**
-     * 性别(0:女,1:男,2:未知)
+     * 性别: 1-男,0-女
      */
     private Integer sex;
-
     /**
      * 出生年份
      */
     private Short bornYear;
-
     /**
      * 年龄
      */
     private Integer age;
-
     /**
      * 生日
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
-
     /**
      * 收入
      */
@@ -102,6 +77,14 @@ public class UserInfoVO implements Serializable {
 
     public void setGmtModified(Date gmtModified) {
         this.gmtModified = gmtModified;
+    }
+
+    public Integer getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Integer deleted) {
+        this.deleted = deleted;
     }
 
     public Long getUserId() {

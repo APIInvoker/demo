@@ -1,30 +1,25 @@
-package com.example.springunity.controller.vo;
+package com.example.springunity.mapper.condition;
 
-import com.example.springunity.mapper.entity.wrapper.UserInfoWrapper;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.example.springunity.controller.UnityController;
 
-import java.io.Serializable;
 import java.util.Date;
 
-/**
- * 用户信息
- */
-public class UserInfoVO implements Serializable {
-    private static final long serialVersionUID = 8190511907753965299L;
+public class UserInfoSelectCondition {
 
-    public static UserInfoVO build(UserInfoWrapper wrapper) {
-        UserInfoVO userInfoVO = new UserInfoVO();
-        userInfoVO.setId(wrapper.getId());
-        userInfoVO.setGmtCreate(wrapper.getGmtCreate());
-        userInfoVO.setGmtModified(wrapper.getGmtModified());
-        userInfoVO.setUserId(wrapper.getUserId());
-        userInfoVO.setNickName(wrapper.getNickName());
-        userInfoVO.setSex(wrapper.getSex());
-        userInfoVO.setBornYear(wrapper.getBornYear());
-        userInfoVO.setAge(wrapper.getAge());
-        userInfoVO.setBirthday(wrapper.getBirthday());
-        userInfoVO.setIncome(wrapper.getIncome());
-        return userInfoVO;
+    public static UserInfoSelectCondition buildUserInfoCondition(UnityController.UserInfoCondition condition) {
+        UserInfoSelectCondition userInfoSelectCondition = new UserInfoSelectCondition();
+        userInfoSelectCondition.setId(condition.getId());
+        userInfoSelectCondition.setGmtCreate(condition.getGmtCreate());
+        userInfoSelectCondition.setGmtModified(condition.getGmtModified());
+        userInfoSelectCondition.setIsDelete(condition.getIsDelete());
+        userInfoSelectCondition.setUserId(condition.getUserId());
+        userInfoSelectCondition.setNickName(condition.getNickName());
+        userInfoSelectCondition.setSex(condition.getSex());
+        userInfoSelectCondition.setBornYear(condition.getBornYear());
+        userInfoSelectCondition.setAge(condition.getAge());
+        userInfoSelectCondition.setBirthday(condition.getBirthday());
+        userInfoSelectCondition.setIncome(condition.getIncome());
+        return userInfoSelectCondition;
     }
 
     /**
@@ -35,14 +30,17 @@ public class UserInfoVO implements Serializable {
     /**
      * 创建时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss SSS")
     private Date gmtCreate;
 
     /**
      * 修改时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss SSS")
     private Date gmtModified;
+
+    /**
+     * 是否删除
+     */
+    private Integer isDelete;
 
     /**
      * 用户id
@@ -62,7 +60,7 @@ public class UserInfoVO implements Serializable {
     /**
      * 出生年份
      */
-    private Short bornYear;
+    private Object bornYear;
 
     /**
      * 年龄
@@ -72,7 +70,6 @@ public class UserInfoVO implements Serializable {
     /**
      * 生日
      */
-    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
     /**
@@ -104,6 +101,14 @@ public class UserInfoVO implements Serializable {
         this.gmtModified = gmtModified;
     }
 
+    public Integer getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(Integer isDelete) {
+        this.isDelete = isDelete;
+    }
+
     public Long getUserId() {
         return userId;
     }
@@ -128,11 +133,11 @@ public class UserInfoVO implements Serializable {
         this.sex = sex;
     }
 
-    public Short getBornYear() {
+    public Object getBornYear() {
         return bornYear;
     }
 
-    public void setBornYear(Short bornYear) {
+    public void setBornYear(Object bornYear) {
         this.bornYear = bornYear;
     }
 

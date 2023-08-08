@@ -1,7 +1,9 @@
 package com.example.springunity.mapper;
 
-import com.example.springunity.entity.UserInfo;
+import com.example.springunity.mapper.condition.UserInfoSelectCondition;
+import com.example.springunity.mapper.entity.wrapper.UserInfoWrapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,15 +18,15 @@ public interface UserInfoMapper {
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(UserInfo record);
+    int insert(@Param("condition") UserInfoSelectCondition condition);
 
-    int insertSelective(UserInfo record);
+    int insertSelective(@Param("condition") UserInfoSelectCondition condition);
 
-    UserInfo selectByPrimaryKey(Long id);
+    UserInfoWrapper selectByPrimaryKey(Long id);
 
-    int updateByPrimaryKeySelective(UserInfo record);
+    int updateByPrimaryKeySelective(@Param("condition") UserInfoSelectCondition condition);
 
-    int updateByPrimaryKey(UserInfo record);
+    int updateByPrimaryKey(@Param("condition") UserInfoSelectCondition condition);
 
-    List<UserInfo> selectAll(UserInfo userInfo);
+    List<UserInfoWrapper> selectAll(@Param("condition") UserInfoSelectCondition condition);
 }

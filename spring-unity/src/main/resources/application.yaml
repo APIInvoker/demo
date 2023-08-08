@@ -4,7 +4,7 @@ spring:
   application:
     name: spring-unity
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/dev
+    url: jdbc:mysql://127.0.0.1:3308/dev
     username: root
     password: adminadmin
     driver-class-name: com.mysql.cj.jdbc.Driver
