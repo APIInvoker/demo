@@ -1,4 +1,4 @@
-package com.example.springunity.aop;
+package com.example.springunity.aop.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.statement.StatementHandler;

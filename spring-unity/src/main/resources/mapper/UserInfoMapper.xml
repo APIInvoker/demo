@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.springunity.mapper.UserInfoMapper">
 
-    <resultMap id="BaseResultMap" type="com.example.springunity.mapper.entity.wrapper.UserInfoWrapper">
+    <resultMap id="BaseResultMap" type="com.example.springunity.service.wrapper.UserInfoWrapper">
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
         <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>

@@ -1,6 +1,6 @@
-package com.example.springunity.aop;
+package com.example.springunity.aop.interceptor;
 
-import com.example.controller.ResponseVO;
+import com.example.domain.ResponseVO;
 import com.example.enums.ResponseCode;
 import com.example.exception.APIException;
 import com.fasterxml.jackson.core.JsonProcessingException;

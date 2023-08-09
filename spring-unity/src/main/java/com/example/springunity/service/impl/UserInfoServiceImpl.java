@@ -3,7 +3,7 @@ package com.example.springunity.service.impl;
 import com.example.springunity.controller.UnityController;
 import com.example.springunity.mapper.condition.UserInfoSelectCondition;
 import com.example.springunity.mapper.UserInfoMapper;
-import com.example.springunity.mapper.entity.wrapper.UserInfoWrapper;
+import com.example.springunity.service.wrapper.UserInfoWrapper;
 import com.example.springunity.service.UserInfoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

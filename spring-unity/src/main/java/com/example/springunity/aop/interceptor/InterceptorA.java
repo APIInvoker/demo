@@ -1,4 +1,4 @@
-package com.example.springunity.interceptor;
+package com.example.springunity.aop.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;

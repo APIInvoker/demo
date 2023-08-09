@@ -2,7 +2,7 @@ package com.example.springunity.controller.biz;
 
 import com.example.springunity.controller.UnityController;
 import com.example.springunity.controller.vo.UserInfoVO;
-import com.example.springunity.mapper.entity.wrapper.UserInfoWrapper;
+import com.example.springunity.service.wrapper.UserInfoWrapper;
 import com.example.springunity.service.impl.UserInfoServiceImpl;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;

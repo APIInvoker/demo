@@ -1,6 +1,6 @@
 package com.example.springunity.controller.vo;
 
-import com.example.springunity.mapper.entity.wrapper.UserInfoWrapper;
+import com.example.springunity.service.wrapper.UserInfoWrapper;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;

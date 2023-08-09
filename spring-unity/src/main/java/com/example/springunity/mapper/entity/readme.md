@@ -1,1 +1,0 @@
-DO = Data Object 严格对应表

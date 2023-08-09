@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.domain;
 
 public class PageParam {
     /**

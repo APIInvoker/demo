@@ -1,7 +1,7 @@
 package com.example.springunity.service;
 
 import com.example.springunity.controller.UnityController;
-import com.example.springunity.mapper.entity.wrapper.UserInfoWrapper;
+import com.example.springunity.service.wrapper.UserInfoWrapper;
 import com.github.pagehelper.PageInfo;
 
 /**

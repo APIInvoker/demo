@@ -42,5 +42,10 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
         <!-- endregion @Slf4j -->
+        <!-- commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
     </dependencies>
 </project>

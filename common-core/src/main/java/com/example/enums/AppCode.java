@@ -1,6 +1,6 @@
 package com.example.enums;
 
-import com.example.controller.StatusCode;
+import com.example.domain.StatusCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

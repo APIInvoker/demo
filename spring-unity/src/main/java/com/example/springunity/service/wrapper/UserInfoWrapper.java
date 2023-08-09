@@ -1,4 +1,4 @@
-package com.example.springunity.mapper.entity.wrapper;
+package com.example.springunity.service.wrapper;
 
 import com.example.springunity.mapper.entity.UserInfo;
 

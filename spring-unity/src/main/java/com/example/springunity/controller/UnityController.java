@@ -2,9 +2,9 @@ package com.example.springunity.controller;
 
 import com.example.annotation.UnifiedResponse;
 import com.example.springunity.controller.biz.UserInfoBiz;
-import com.example.springunity.controller.condition.QueryCondition;
+import com.example.domain.QueryCondition;
 import com.example.springunity.controller.vo.UserInfoVO;
-import com.example.controller.ResponseVO;
+import com.example.domain.ResponseVO;
 import com.example.enums.AppCode;
 import com.example.exception.APIException;
 import com.example.springunity.service.UserInfoService;

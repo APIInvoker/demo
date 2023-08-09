@@ -1,7 +1,7 @@
 package com.example.springunity.mapper;
 
 import com.example.springunity.mapper.condition.UserInfoSelectCondition;
-import com.example.springunity.mapper.entity.wrapper.UserInfoWrapper;
+import com.example.springunity.service.wrapper.UserInfoWrapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

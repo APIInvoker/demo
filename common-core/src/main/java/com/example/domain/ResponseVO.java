@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.domain;
 
 import com.example.enums.ResponseCode;
 

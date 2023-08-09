@@ -1,6 +1,6 @@
 package com.example.springunity.config;
 
-import com.example.springunity.interceptor.InterceptorA;
+import com.example.springunity.aop.interceptor.InterceptorA;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;

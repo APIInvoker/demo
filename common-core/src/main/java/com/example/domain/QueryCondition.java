@@ -1,4 +1,4 @@
-package com.example.springunity.controller.condition;
+package com.example.domain;
 
 import org.apache.commons.lang3.StringUtils;
 

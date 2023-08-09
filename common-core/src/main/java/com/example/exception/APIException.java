@@ -1,6 +1,6 @@
 package com.example.exception;
 
-import com.example.controller.StatusCode;
+import com.example.domain.StatusCode;
 import com.example.enums.AppCode;
 import lombok.Getter;
 
