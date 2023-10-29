@@ -1,6 +1,10 @@
 package com.example.springunity.controller;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.write.metadata.WriteSheet;
 import com.example.annotation.UnifiedResponse;
+import com.example.springunity.SpringUnityApplication;
 import com.example.springunity.controller.biz.UserInfoBiz;
 import com.example.domain.QueryCondition;
 import com.example.springunity.controller.vo.UserInfoVO;
@@ -10,6 +14,10 @@ import com.example.exception.APIException;
 import com.example.springunity.service.UserInfoService;
 import com.example.util.HttpUtil;
 import com.github.pagehelper.PageInfo;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +26,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -83,6 +92,8 @@ public class UnityController {
         return userInfoBiz.queryPageInfo(condition);
     }
 
+    @Getter
+    @Setter
     public static class UserInfoCondition extends QueryCondition {
         /**
          * 主键id
@@ -138,93 +149,35 @@ public class UnityController {
          * 收入
          */
         private Integer income;
+    }
 
-        public Long getId() {
-            return id;
-        }
+    @GetMapping("/export")
+    public void export() {
+        // 模板注意 用{} 来表示你要用的变量 如果本来就有"{","}" 特殊字符 用"\{","\}"代替
+        // {} 代表普通变量 {.} 代表是list的变量
+        ClassLoader classLoader = SpringUnityApplication.class.getClassLoader();
+        String excelTemplatePath = "templates/excel/";
+        String exportOutPath = "C:/Users/zx/Downloads/";
+        String templatePath = Objects.requireNonNull(classLoader.getResource(excelTemplatePath + "UserInfoTemp.xlsx")).getPath();
+        System.out.println("Path of template: " + templatePath);
 
-        public void setId(Long id) {
-            this.id = id;
-        }
+        try (ExcelWriter excelWriter = EasyExcel.write(exportOutPath + UUID.randomUUID() + ".xlsx").withTemplate(templatePath).build()) {
+            WriteSheet writeSheet = EasyExcel.writerSheet().build();
+            // 写入列表之前的数据
+            Map<String, Object> map = new HashMap<>();
+            map.put("date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,sss").format(new Date()));
+            excelWriter.fill(map, writeSheet);
 
-        public Date getGmtCreate() {
-            return gmtCreate;
-        }
-
-        public void setGmtCreate(Date gmtCreate) {
-            this.gmtCreate = gmtCreate;
-        }
-
-        public Date getGmtModified() {
-            return gmtModified;
-        }
-
-        public void setGmtModified(Date gmtModified) {
-            this.gmtModified = gmtModified;
-        }
-
-        public Integer getIsDelete() {
-            return isDelete;
-        }
-
-        public void setIsDelete(Integer isDelete) {
-            this.isDelete = isDelete;
-        }
-
-        public Long getUserId() {
-            return userId;
-        }
-
-        public void setUserId(Long userId) {
-            this.userId = userId;
-        }
-
-        public String getNickName() {
-            return nickName;
-        }
-
-        public void setNickName(String nickName) {
-            this.nickName = nickName;
-        }
-
-        public Integer getSex() {
-            return sex;
-        }
-
-        public void setSex(Integer sex) {
-            this.sex = sex;
-        }
-
-        public Object getBornYear() {
-            return bornYear;
-        }
-
-        public void setBornYear(Object bornYear) {
-            this.bornYear = bornYear;
-        }
-
-        public Integer getAge() {
-            return age;
-        }
-
-        public void setAge(Integer age) {
-            this.age = age;
-        }
-
-        public Date getBirthday() {
-            return birthday;
-        }
-
-        public void setBirthday(Date birthday) {
-            this.birthday = birthday;
-        }
-
-        public Integer getIncome() {
-            return income;
-        }
-
-        public void setIncome(Integer income) {
-            this.income = income;
+            // 写入列表数据
+            excelWriter.fill(userInfoBiz.queryPageInfo(new UserInfoCondition()).getList(), writeSheet);
+            // 设置列表行之后的统计行
+            List<List<String>> totalListList = new ArrayList<>();
+            List<String> line1 = new ArrayList<>();
+            line1.add(null);
+            line1.add(null);
+            line1.add("1000");
+            totalListList.add(line1);
+            excelWriter.write(totalListList, writeSheet);
         }
     }
 }

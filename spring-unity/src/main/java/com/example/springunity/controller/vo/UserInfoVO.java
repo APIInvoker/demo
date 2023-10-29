@@ -2,8 +2,10 @@ package com.example.springunity.controller.vo;
 
 import com.example.springunity.service.wrapper.UserInfoWrapper;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.commons.lang3.time.DateUtils;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -144,8 +146,8 @@ public class UserInfoVO implements Serializable {
         this.age = age;
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public String getBirthday() {
+        return new SimpleDateFormat("yyyy-MM-dd").format(birthday);
     }
 
     public void setBirthday(Date birthday) {

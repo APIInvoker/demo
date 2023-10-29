@@ -1,6 +1,8 @@
 package com.example.springunity.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.springunity.mapper.condition.UserInfoSelectCondition;
+import com.example.springunity.mapper.entity.UserInfo;
 import com.example.springunity.service.wrapper.UserInfoWrapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,11 +16,11 @@ import java.util.List;
  * @Entity com.example.springunity.entity.UserInfo
  */
 @Mapper
-public interface UserInfoMapper {
+public interface UserInfoMapper extends BaseMapper<UserInfo> {
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(@Param("condition") UserInfoSelectCondition condition);
+    // int insert(@Param("condition") UserInfoSelectCondition condition);
 
     int insertSelective(@Param("condition") UserInfoSelectCondition condition);
 

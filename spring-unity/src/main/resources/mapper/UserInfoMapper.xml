@@ -8,7 +8,7 @@
         <id property="id" column="id" jdbcType="BIGINT"/>
         <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
         <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
-        <result property="deleted" column="is_deleted" jdbcType="TINYINT"/>
+        <result property="deleted" column="deleted" jdbcType="TINYINT"/>
         <result property="userId" column="user_id" jdbcType="BIGINT"/>
         <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
         <result property="sex" column="sex" jdbcType="TINYINT"/>
@@ -30,16 +30,6 @@
         where id = #{id,jdbcType=BIGINT}
     </delete>
 
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.springunity.mapper.entity.UserInfo"
-            useGeneratedKeys="true">
-        insert into user_info
-        (id, gmt_create, gmt_modified, is_deleted, user_id, nick_name, sex, born_year, age, birthday, income)
-        values (#{id,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP},
-                #{deleted,jdbcType=TINYINT}, #{userId,jdbcType=BIGINT}, #{nickName,jdbcType=VARCHAR},
-                #{sex,jdbcType=TINYINT}, #{bornYear,jdbcType=OTHER}, #{age,jdbcType=TINYINT},
-                #{birthday,jdbcType=DATE}, #{income,jdbcType=DECIMAL})
-    </insert>
-
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.springunity.mapper.entity.UserInfo"
             useGeneratedKeys="true">
         insert into user_info
@@ -47,7 +37,7 @@
             <if test="id != null">id,</if>
             <if test="gmtCreate != null">gmt_create,</if>
             <if test="gmtModified != null">gmt_modified,</if>
-            <if test="deleted != null">is_deleted,</if>
+            <if test="deleted != null">deleted,</if>
             <if test="userId != null">user_id,</if>
             <if test="nickName != null">nick_name,</if>
             <if test="sex != null">sex,</if>
@@ -81,7 +71,7 @@
                 gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
             </if>
             <if test="deleted != null">
-                is_deleted = #{deleted,jdbcType=TINYINT},
+                deleted = #{deleted,jdbcType=TINYINT},
             </if>
             <if test="userId != null">
                 user_id = #{userId,jdbcType=BIGINT},
@@ -112,7 +102,7 @@
         update user_info
         set gmt_create   = #{gmtCreate,jdbcType=TIMESTAMP},
             gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-            is_deleted   = #{deleted,jdbcType=TINYINT},
+            deleted   = #{deleted,jdbcType=TINYINT},
             user_id      = #{userId,jdbcType=BIGINT},
             nick_name    = #{nickName,jdbcType=VARCHAR},
             sex          = #{sex,jdbcType=TINYINT},

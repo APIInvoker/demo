@@ -1,8 +1,10 @@
 package com.example.springunity.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.springunity.controller.UnityController;
 import com.example.springunity.mapper.condition.UserInfoSelectCondition;
 import com.example.springunity.mapper.UserInfoMapper;
+import com.example.springunity.mapper.entity.UserInfo;
 import com.example.springunity.service.wrapper.UserInfoWrapper;
 import com.example.springunity.service.UserInfoService;
 import com.github.pagehelper.PageHelper;
@@ -31,6 +33,10 @@ public class UserInfoServiceImpl implements UserInfoService {
         UserInfoSelectCondition selectCondition = buildUserInfoCondition(condition);
         PageHelper.startPage(condition.getPageNum(), condition.getPageSize());
         List<UserInfoWrapper> userInfoWrapperList = userInfoMapper.selectAll(selectCondition);
+        UserInfo userInfo = userInfoMapper.selectById(1);
+        QueryWrapper<UserInfo> wrapper = new QueryWrapper<>();
+        wrapper.eq("nick_name", "Spike");
+        UserInfo userInfo1 = userInfoMapper.selectOne(wrapper);
         return new PageInfo<>(userInfoWrapperList);
     }
 }
