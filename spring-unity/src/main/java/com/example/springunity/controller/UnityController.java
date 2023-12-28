@@ -7,6 +7,7 @@ import com.example.annotation.UnifiedResponse;
 import com.example.domain.QueryCondition;
 import com.example.domain.ResponseVO;
 import com.example.enums.AppCode;
+import com.example.enums.CommonConst;
 import com.example.exception.APIException;
 import com.example.page.Page;
 import com.example.page.PageInfo;
@@ -14,6 +15,7 @@ import com.example.springunity.SpringUnityApplication;
 import com.example.springunity.controller.biz.UserInfoBiz;
 import com.example.springunity.controller.vo.UserInfoVO;
 import com.example.springunity.service.UserInfoService;
+import com.example.util.FileUtil;
 import com.example.util.HttpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
@@ -25,9 +27,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -186,6 +188,9 @@ public class UnityController {
         }
     }
 
+    /**
+     * 只能下载简单数据的Excel
+     */
     @GetMapping("/download")
     public void download(HttpServletResponse response) throws IOException {
         // 这里注意 有同学反应使用swagger会导致各种问题，请直接用浏览器或者用postman
@@ -193,8 +198,49 @@ public class UnityController {
         response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         response.setCharacterEncoding("utf-8");
         // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
-        String fileName = URLEncoder.encode("测试", "UTF-8").replaceAll("\\+", "%20");
+        String fileName = URLEncoder.encode("测试", StandardCharsets.UTF_8).replaceAll("\\+", "%20");
         response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
         EasyExcel.write(response.getOutputStream(), UserInfoVO.class).sheet("模板").doWrite(data);
+    }
+
+    /**
+     * 下载Excel
+     * <p>其实是导出，再下载导出的这个文件，再删除导出的这个文件。不然我不知道复杂Excel下载怎么做。</p>
+     */
+    @RequestMapping("/downloadExcel")
+    public void downloadFile(HttpServletResponse response) {
+        // 模板注意 用{} 来表示你要用的变量 如果本来就有"{","}" 特殊字符 用"\{","\}"代替
+        // {} 代表普通变量 {.} 代表是list的变量
+        ClassLoader classLoader = SpringUnityApplication.class.getClassLoader();
+        String templatePath = Objects.requireNonNull(classLoader.getResource(CommonConst.EXCEL_TEMPLATE_PATH + "UserInfoTemp.xlsx")).getPath();
+
+        File exportFolder = new File(CommonConst.EXCEL_EXPORT_PATH);
+        if (!exportFolder.exists()) {
+            boolean mkdir = exportFolder.mkdir();
+        }
+
+        String fileName = "用户信息" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        String file = CommonConst.EXCEL_EXPORT_PATH + fileName + ".xlsx";
+        try (ExcelWriter excelWriter = EasyExcel.write(file).withTemplate(templatePath).build()) {
+            WriteSheet writeSheet = EasyExcel.writerSheet().build();
+            // 写入列表之前的数据
+            Map<String, Object> map = new HashMap<>();
+            map.put("date", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,sss").format(new Date()));
+            excelWriter.fill(map, writeSheet);
+
+            // 写入列表数据
+            List<UserInfoVO> data = userInfoBiz.queryUserInfoPage(new UserInfoCondition(), PageInfo.buildExportPageInfo1()).getListData();
+            excelWriter.fill(data, writeSheet);
+            // 设置列表行之后的统计行
+            List<List<String>> totalListList = new ArrayList<>();
+            List<String> line1 = new ArrayList<>();
+            line1.add(null);
+            line1.add(null);
+            line1.add("1000");
+            totalListList.add(line1);
+            excelWriter.write(totalListList, writeSheet);
+        }
+
+        FileUtil.downloadExcelFromServer(response, fileName);
     }
 }

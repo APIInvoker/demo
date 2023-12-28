@@ -18,14 +18,14 @@ public class UserInfoVO implements Serializable {
     public static UserInfoVO build(UserInfoWrapper wrapper) {
         UserInfoVO userInfoVO = new UserInfoVO();
         userInfoVO.setId(wrapper.getId());
-        userInfoVO.setGmtCreate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS").format(wrapper.getGmtCreate()));
-        userInfoVO.setGmtModified(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS").format(wrapper.getGmtModified()));
+        userInfoVO.setGmtCreate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS").format(wrapper.getGmtCreate()));
+        userInfoVO.setGmtModified(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS").format(wrapper.getGmtModified()));
         userInfoVO.setUserId(wrapper.getUserId());
         userInfoVO.setNickName(wrapper.getNickName());
         userInfoVO.setSex(wrapper.getSex());
         userInfoVO.setBornYear(wrapper.getBornYear());
         userInfoVO.setAge(wrapper.getAge());
-        userInfoVO.setBirthday(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS").format(wrapper.getBirthday()));
+        userInfoVO.setBirthday(new SimpleDateFormat("yyyy-MM-dd").format(wrapper.getBirthday()));
         userInfoVO.setIncome(wrapper.getIncome());
         return userInfoVO;
     }
