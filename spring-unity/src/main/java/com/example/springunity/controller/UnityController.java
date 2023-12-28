@@ -4,17 +4,18 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.example.annotation.UnifiedResponse;
-import com.example.springunity.SpringUnityApplication;
-import com.example.springunity.controller.biz.UserInfoBiz;
 import com.example.domain.QueryCondition;
-import com.example.springunity.controller.vo.UserInfoVO;
 import com.example.domain.ResponseVO;
 import com.example.enums.AppCode;
 import com.example.exception.APIException;
-import com.example.springunity.service.UserInfoService;
-import com.example.util.HttpUtil;
 import com.example.page.Page;
 import com.example.page.PageInfo;
+import com.example.springunity.SpringUnityApplication;
+import com.example.springunity.controller.biz.UserInfoBiz;
+import com.example.springunity.controller.vo.UserInfoVO;
+import com.example.springunity.service.UserInfoService;
+import com.example.util.HttpUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +24,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -41,6 +44,7 @@ public class UnityController {
     private RedisTemplate<String, Object> redisTemplate;
     @Resource
     private UserInfoService userInfoService;
+    ObjectMapper om = new ObjectMapper();
 
     @GetMapping("/heart")
     @UnifiedResponse
@@ -151,7 +155,7 @@ public class UnityController {
     }
 
     @GetMapping("/export")
-    public void export() {
+    public void export(HttpServletResponse response) {
         // 模板注意 用{} 来表示你要用的变量 如果本来就有"{","}" 特殊字符 用"\{","\}"代替
         // {} 代表普通变量 {.} 代表是list的变量
         ClassLoader classLoader = SpringUnityApplication.class.getClassLoader();
@@ -160,7 +164,8 @@ public class UnityController {
         String templatePath = Objects.requireNonNull(classLoader.getResource(excelTemplatePath + "UserInfoTemp.xlsx")).getPath();
         System.out.println("Path of template: " + templatePath);
 
-        try (ExcelWriter excelWriter = EasyExcel.write(exportOutPath + UUID.randomUUID() + ".xlsx").withTemplate(templatePath).build()) {
+        String file = exportOutPath + UUID.randomUUID() + ".xlsx";
+        try (ExcelWriter excelWriter = EasyExcel.write(file).withTemplate(templatePath).build()) {
             WriteSheet writeSheet = EasyExcel.writerSheet().build();
             // 写入列表之前的数据
             Map<String, Object> map = new HashMap<>();
@@ -168,7 +173,8 @@ public class UnityController {
             excelWriter.fill(map, writeSheet);
 
             // 写入列表数据
-            excelWriter.fill(userInfoBiz.queryUserInfoPage(new UserInfoCondition(), PageInfo.buildExportPageInfo1()).getListData(), writeSheet);
+            List<UserInfoVO> data = userInfoBiz.queryUserInfoPage(new UserInfoCondition(), PageInfo.buildExportPageInfo1()).getListData();
+            excelWriter.fill(data, writeSheet);
             // 设置列表行之后的统计行
             List<List<String>> totalListList = new ArrayList<>();
             List<String> line1 = new ArrayList<>();
@@ -178,5 +184,17 @@ public class UnityController {
             totalListList.add(line1);
             excelWriter.write(totalListList, writeSheet);
         }
+    }
+
+    @GetMapping("/download")
+    public void download(HttpServletResponse response) throws IOException {
+        // 这里注意 有同学反应使用swagger会导致各种问题，请直接用浏览器或者用postman
+        List<UserInfoVO> data = userInfoBiz.queryUserInfoPage(new UserInfoCondition(), PageInfo.buildExportPageInfo1()).getListData();
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setCharacterEncoding("utf-8");
+        // 这里URLEncoder.encode可以防止中文乱码 当然和easyexcel没有关系
+        String fileName = URLEncoder.encode("测试", "UTF-8").replaceAll("\\+", "%20");
+        response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+        EasyExcel.write(response.getOutputStream(), UserInfoVO.class).sheet("模板").doWrite(data);
     }
 }

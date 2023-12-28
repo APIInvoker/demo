@@ -1,5 +1,6 @@
 package com.example.springunity.controller.vo;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import com.example.springunity.service.wrapper.UserInfoWrapper;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.time.DateUtils;
@@ -17,14 +18,14 @@ public class UserInfoVO implements Serializable {
     public static UserInfoVO build(UserInfoWrapper wrapper) {
         UserInfoVO userInfoVO = new UserInfoVO();
         userInfoVO.setId(wrapper.getId());
-        userInfoVO.setGmtCreate(wrapper.getGmtCreate());
-        userInfoVO.setGmtModified(wrapper.getGmtModified());
+        userInfoVO.setGmtCreate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS").format(wrapper.getGmtCreate()));
+        userInfoVO.setGmtModified(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS").format(wrapper.getGmtModified()));
         userInfoVO.setUserId(wrapper.getUserId());
         userInfoVO.setNickName(wrapper.getNickName());
         userInfoVO.setSex(wrapper.getSex());
         userInfoVO.setBornYear(wrapper.getBornYear());
         userInfoVO.setAge(wrapper.getAge());
-        userInfoVO.setBirthday(wrapper.getBirthday());
+        userInfoVO.setBirthday(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss SSS").format(wrapper.getBirthday()));
         userInfoVO.setIncome(wrapper.getIncome());
         return userInfoVO;
     }
@@ -38,13 +39,14 @@ public class UserInfoVO implements Serializable {
      * 创建时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss SSS")
-    private Date gmtCreate;
+    @ExcelProperty(value = "创建日期")
+    private String gmtCreate;
 
     /**
      * 修改时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss SSS")
-    private Date gmtModified;
+    private String gmtModified;
 
     /**
      * 用户id
@@ -75,7 +77,7 @@ public class UserInfoVO implements Serializable {
      * 生日
      */
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date birthday;
+    private String birthday;
 
     /**
      * 收入
@@ -90,19 +92,19 @@ public class UserInfoVO implements Serializable {
         this.id = id;
     }
 
-    public Date getGmtCreate() {
+    public String getGmtCreate() {
         return gmtCreate;
     }
 
-    public void setGmtCreate(Date gmtCreate) {
+    public void setGmtCreate(String gmtCreate) {
         this.gmtCreate = gmtCreate;
     }
 
-    public Date getGmtModified() {
+    public String getGmtModified() {
         return gmtModified;
     }
 
-    public void setGmtModified(Date gmtModified) {
+    public void setGmtModified(String gmtModified) {
         this.gmtModified = gmtModified;
     }
 
@@ -147,10 +149,10 @@ public class UserInfoVO implements Serializable {
     }
 
     public String getBirthday() {
-        return new SimpleDateFormat("yyyy-MM-dd").format(birthday);
+        return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
