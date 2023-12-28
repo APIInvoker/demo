@@ -1,8 +1,9 @@
 package com.example.springunity.service;
 
-import com.example.springunity.controller.UnityController;
+import com.example.springunity.mapper.condition.UserInfoSelectCondition;
 import com.example.springunity.service.wrapper.UserInfoWrapper;
-import com.github.pagehelper.PageInfo;
+import com.example.page.Page;
+import com.example.page.PageInfo;
 
 /**
  * @author zx
@@ -10,5 +11,5 @@ import com.github.pagehelper.PageInfo;
  * @since 2022-08-16 23:03:28
  */
 public interface UserInfoService {
-    PageInfo<UserInfoWrapper> pageQuery(UnityController.UserInfoCondition UserInfoCondition);
+    Page<UserInfoWrapper> pageQuery(UserInfoSelectCondition selectCondition, PageInfo pageInfo);
 }

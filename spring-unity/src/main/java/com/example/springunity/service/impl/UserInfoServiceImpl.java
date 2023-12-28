@@ -1,22 +1,16 @@
 package com.example.springunity.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.example.springunity.controller.UnityController;
-import com.example.springunity.mapper.condition.UserInfoSelectCondition;
 import com.example.springunity.mapper.UserInfoMapper;
-import com.example.springunity.mapper.entity.UserInfo;
-import com.example.springunity.service.wrapper.UserInfoWrapper;
+import com.example.springunity.mapper.condition.UserInfoSelectCondition;
 import com.example.springunity.service.UserInfoService;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
+import com.example.springunity.service.wrapper.UserInfoWrapper;
+import com.example.page.Page;
+import com.example.page.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-
 import java.util.List;
-
-import static com.example.springunity.mapper.condition.UserInfoSelectCondition.buildUserInfoCondition;
 
 /**
  * @author zx
@@ -29,14 +23,12 @@ public class UserInfoServiceImpl implements UserInfoService {
     private UserInfoMapper userInfoMapper;
 
     @Override
-    public PageInfo<UserInfoWrapper> pageQuery(UnityController.UserInfoCondition condition) {
-        UserInfoSelectCondition selectCondition = buildUserInfoCondition(condition);
-        PageHelper.startPage(condition.getPageNum(), condition.getPageSize());
-        List<UserInfoWrapper> userInfoWrapperList = userInfoMapper.selectAll(selectCondition);
-        UserInfo userInfo = userInfoMapper.selectById(1);
-        QueryWrapper<UserInfo> wrapper = new QueryWrapper<>();
-        wrapper.eq("nick_name", "Spike");
-        UserInfo userInfo1 = userInfoMapper.selectOne(wrapper);
-        return new PageInfo<>(userInfoWrapperList);
+    public Page<UserInfoWrapper> pageQuery(UserInfoSelectCondition selectCondition, PageInfo pageInfo) {
+        int count = userInfoMapper.countSelectPage(selectCondition);
+        if (count == 0) {
+            return pageInfo.buildPage();
+        }
+        List<UserInfoWrapper> userInfoWrapperList = userInfoMapper.selectPage(selectCondition, pageInfo.getOffset(), pageInfo.getPageSize());
+        return pageInfo.buildPage(userInfoWrapperList, count);
     }
 }

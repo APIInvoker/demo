@@ -113,11 +113,21 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
 
-    <select id="selectAll" resultMap="BaseResultMap">
+    <select id="countSelectPage" resultType="int">
+        select count(0)
+        <include refid="selectPageAll"/>
+    </select>
+
+    <select id="selectPage" resultMap="BaseResultMap">
         select *
+        <include refid="selectPageAll"/>
+        LIMIT #{pageSize} OFFSET #{offset}
+    </select>
+
+    <sql id="selectPageAll">
         from user_info
         <where>
             <if test="condition.nickName != null and condition.nickName != ''">nick_name = #{condition.nickName,jdbcType=VARCHAR}</if>
         </where>
-    </select>
+    </sql>
 </mapper>

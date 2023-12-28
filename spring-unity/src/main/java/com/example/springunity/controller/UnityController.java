@@ -13,9 +13,8 @@ import com.example.enums.AppCode;
 import com.example.exception.APIException;
 import com.example.springunity.service.UserInfoService;
 import com.example.util.HttpUtil;
-import com.github.pagehelper.PageInfo;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import com.example.page.Page;
+import com.example.page.PageInfo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -87,9 +86,9 @@ public class UnityController {
     @Resource
     private UserInfoBiz userInfoBiz;
 
-    @GetMapping(value = "pageUserInfo", name = "分页查询")
-    public PageInfo<UserInfoVO> queryUserInfo(UserInfoCondition condition, int pageNum, int pageSize) {
-        return userInfoBiz.queryPageInfo(condition);
+    @GetMapping(value = "queryUserInfoPage", name = "分页查询")
+    public Page<UserInfoVO> queryUserInfoPage(UserInfoCondition condition) {
+        return userInfoBiz.queryUserInfoPage(condition, new PageInfo(condition.getPageNum(), condition.getPageSize()));
     }
 
     @Getter
@@ -169,7 +168,7 @@ public class UnityController {
             excelWriter.fill(map, writeSheet);
 
             // 写入列表数据
-            excelWriter.fill(userInfoBiz.queryPageInfo(new UserInfoCondition()).getList(), writeSheet);
+            excelWriter.fill(userInfoBiz.queryUserInfoPage(new UserInfoCondition(), PageInfo.buildExportPageInfo1()).getListData(), writeSheet);
             // 设置列表行之后的统计行
             List<List<String>> totalListList = new ArrayList<>();
             List<String> line1 = new ArrayList<>();
