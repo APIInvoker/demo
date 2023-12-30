@@ -8,7 +8,8 @@ import java.util.Objects;
  * @author zx
  * @since 2022/7/18 11:13
  */
-public class ResponseVO {
+public class ResponseVO
+{
     /**
      * 状态码
      */
@@ -27,7 +28,8 @@ public class ResponseVO {
     /**
      * 手动设置返回vo
      */
-    public ResponseVO(int code, String msg, Object data) {
+    public ResponseVO(int code, String msg, Object data)
+    {
         this.code = code;
         this.msg = msg;
         this.data = data;
@@ -38,7 +40,8 @@ public class ResponseVO {
      *
      * @param data 要返回的数据
      */
-    public ResponseVO(Object data) {
+    public ResponseVO(Object data)
+    {
         code = ResponseCode.SUCCESS.getCode();
         msg = ResponseCode.SUCCESS.getMsg();
         this.data = data;
@@ -50,7 +53,8 @@ public class ResponseVO {
      * @param statusCode 状态码
      * @param data       要返回的数据
      */
-    public ResponseVO(StatusCode statusCode, Object data) {
+    public ResponseVO(StatusCode statusCode, Object data)
+    {
         code = statusCode.getCode();
         msg = statusCode.getMsg();
         this.data = data;
@@ -61,38 +65,46 @@ public class ResponseVO {
      *
      * @param statusCode 状态码
      */
-    public ResponseVO(StatusCode statusCode) {
+    public ResponseVO(StatusCode statusCode)
+    {
         code = statusCode.getCode();
         msg = statusCode.getMsg();
         data = null;
     }
 
-    public int getCode() {
+    public int getCode()
+    {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(int code)
+    {
         this.code = code;
     }
 
-    public String getMsg() {
+    public String getMsg()
+    {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public void setMsg(String msg)
+    {
         this.msg = msg;
     }
 
-    public Object getData() {
+    public Object getData()
+    {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(Object data)
+    {
         this.data = data;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) {
             return true;
         }
@@ -104,16 +116,14 @@ public class ResponseVO {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return Objects.hash(code, msg, data);
     }
 
     @Override
-    public String toString() {
-        return "ResponseVO{" +
-                "code=" + code +
-                ", msg='" + msg + '\'' +
-                ", data=" + data +
-                '}';
+    public String toString()
+    {
+        return "ResponseVO{" + "code=" + code + ", msg='" + msg + '\'' + ", data=" + data + '}';
     }
 }

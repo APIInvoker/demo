@@ -19,13 +19,15 @@ import java.nio.file.Paths;
  * @since 2023-12-28
  */
 @Slf4j
-public class FileUtil {
+public class FileUtil
+{
     /**
      * 从服务器下载Excel文件
      *
      * @param fileName 文件名（非绝对路径）
      */
-    public static void downloadExcelFromServer(HttpServletResponse response, String fileName) {
+    public static void downloadExcelFromServer(HttpServletResponse response, String fileName)
+    {
         response.setContentType("application/vnd.ms-excel;charset=utf-8");
         // 设置content-disposition响应头控制浏览器以下载的形式打开文件
         response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, StandardCharsets.UTF_8) + ".xlsx");

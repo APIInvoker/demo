@@ -17,18 +17,18 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import javax.annotation.Nonnull;
 
 @RestControllerAdvice(basePackages = "com.example.springunity")
-public class ControllerResponseAdvice implements ResponseBodyAdvice<Object> {
+public class ControllerResponseAdvice implements ResponseBodyAdvice<Object>
+{
     @Override
-    public boolean supports(MethodParameter methodParameter, @Nonnull Class<? extends HttpMessageConverter<?>> aClass) {
+    public boolean supports(MethodParameter methodParameter, @Nonnull Class<? extends HttpMessageConverter<?>> aClass)
+    {
         // response是responseVO类型，或者注释了@NotControllerResponseAdvice都不进行包装
-        return !(methodParameter.getParameterType().isAssignableFrom(ResponseVO.class)
-                || methodParameter.hasMethodAnnotation(UnifiedResponse.class));
+        return !(methodParameter.getParameterType().isAssignableFrom(ResponseVO.class) || methodParameter.hasMethodAnnotation(UnifiedResponse.class));
     }
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, @Nonnull MediaType selectedContentType,
-                                  @Nonnull Class<? extends HttpMessageConverter<?>> selectedConverterType,
-                                  @Nonnull ServerHttpRequest request, @Nonnull ServerHttpResponse response) {
+    public Object beforeBodyWrite(Object body, MethodParameter returnType, @Nonnull MediaType selectedContentType, @Nonnull Class<? extends HttpMessageConverter<?>> selectedConverterType, @Nonnull ServerHttpRequest request, @Nonnull ServerHttpResponse response)
+    {
         // String类型不能直接包装
         if (returnType.getGenericParameterType().equals(String.class)) {
             ObjectMapper objectMapper = new ObjectMapper();

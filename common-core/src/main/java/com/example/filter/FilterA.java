@@ -12,22 +12,25 @@ import java.io.IOException;
  */
 @Slf4j
 @WebFilter(urlPatterns = "/*")
-public class FilterA implements Filter {
+public class FilterA implements Filter
+{
     @Override
-    public void init(FilterConfig filterConfig) {
+    public void init(FilterConfig filterConfig)
+    {
         log.info("init");
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,
-                         FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException
+    {
         log.info("doFilter pre");
         filterChain.doFilter(servletRequest, servletResponse);
         log.info("doFilter post");
     }
 
     @Override
-    public void destroy() {
+    public void destroy()
+    {
         log.info("destroy");
     }
 }

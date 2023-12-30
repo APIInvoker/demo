@@ -16,7 +16,8 @@ import java.util.List;
  * @Entity com.example.springunity.entity.UserInfo
  */
 @Mapper
-public interface UserInfoMapper extends BaseMapper<UserInfo> {
+public interface UserInfoMapper extends BaseMapper<UserInfo>
+{
 
     int deleteByPrimaryKey(Long id);
 

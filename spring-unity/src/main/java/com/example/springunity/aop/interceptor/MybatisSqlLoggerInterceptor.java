@@ -31,9 +31,11 @@ import java.util.regex.Matcher;
 @Component
 @Slf4j
 @Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})})
-public class MybatisSqlLoggerInterceptor implements Interceptor {
+public class MybatisSqlLoggerInterceptor implements Interceptor
+{
     @Override
-    public Object intercept(Invocation invocation) throws Throwable {
+    public Object intercept(Invocation invocation) throws Throwable
+    {
         StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
         // 通过MetaObject优雅访问对象的属性，这里是访问statementHandler的属性;：MetaObject是Mybatis提供的一个用于方便、
         // 优雅访问对象属性的对象，通过它可以简化代码、不需要try/catch各种reflect异常，同时它支持对JavaBean、Collection、Map三种类型对象的操作。
@@ -70,7 +72,8 @@ public class MybatisSqlLoggerInterceptor implements Interceptor {
      * 封装了一下sql语句，
      * 使得结果返回完整xml路径下的sql语句节点id + sql语句
      */
-    private String getSql(Configuration configuration, BoundSql boundSql, String sqlId) {
+    private String getSql(Configuration configuration, BoundSql boundSql, String sqlId)
+    {
         String sql = showSql(configuration, boundSql);
         return sqlId + ":" + sql;
     }
@@ -79,17 +82,21 @@ public class MybatisSqlLoggerInterceptor implements Interceptor {
      * 如果参数是String，则添加单引号， 如果是日期，则转换为时间格式器并加单引号；
      * 对参数是null和不是null的情况作了处理<br>
      */
-    private String getParameterValue(Object obj) {
+    private String getParameterValue(Object obj)
+    {
         String value;
         if (obj instanceof String) {
             value = "'" + obj + "'";
-        } else if (obj instanceof Date) {
+        }
+        else if (obj instanceof Date) {
             DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.DEFAULT, Locale.CHINA);
             value = "'" + formatter.format(new Date()) + "'";
-        } else {
+        }
+        else {
             if (obj != null) {
                 value = obj.toString();
-            } else {
+            }
+            else {
                 value = "";
             }
         }
@@ -99,11 +106,11 @@ public class MybatisSqlLoggerInterceptor implements Interceptor {
     /**
      * 进行？的替换
      */
-    public String showSql(Configuration configuration, BoundSql boundSql) {
+    public String showSql(Configuration configuration, BoundSql boundSql)
+    {
         // 获取参数
         Object parameterObject = boundSql.getParameterObject();
-        List<ParameterMapping> parameterMappings = boundSql
-                .getParameterMappings();
+        List<ParameterMapping> parameterMappings = boundSql.getParameterMappings();
         // sql语句中多个空格都用一个空格代替
         String sql = boundSql.getSql().replaceAll("[\\s]+", " ");
         if (!CollectionUtils.isEmpty(parameterMappings) && parameterObject != null) {
@@ -112,7 +119,8 @@ public class MybatisSqlLoggerInterceptor implements Interceptor {
             TypeHandlerRegistry typeHandlerRegistry = configuration.getTypeHandlerRegistry();
             if (typeHandlerRegistry.hasTypeHandler(parameterObject.getClass())) {
                 sql = sql.replaceFirst("\\?", Matcher.quoteReplacement(getParameterValue(parameterObject)));
-            } else {
+            }
+            else {
                 // MetaObject主要是封装了originalObject对象，
                 // 提供了get和set的方法用于获取和设置originalObject的属性值,
                 // 主要支持对JavaBean、Collection、Map三种类型对象的操作
@@ -122,12 +130,14 @@ public class MybatisSqlLoggerInterceptor implements Interceptor {
                     if (metaObject.hasGetter(propertyName)) {
                         Object obj = metaObject.getValue(propertyName);
                         sql = sql.replaceFirst("\\?", Matcher.quoteReplacement(getParameterValue(obj)));
-                    } else if (boundSql.hasAdditionalParameter(propertyName)) {
+                    }
+                    else if (boundSql.hasAdditionalParameter(propertyName)) {
                         // 该分支是动态sql
                         Object obj = boundSql.getAdditionalParameter(propertyName);
                         sql = sql.replaceFirst("\\?", Matcher.quoteReplacement(getParameterValue(obj)));
 
-                    } else {
+                    }
+                    else {
                         // 打印出缺失，提醒该参数缺失并防止错位
                         sql = sql.replaceFirst("\\?", "缺失");
                     }

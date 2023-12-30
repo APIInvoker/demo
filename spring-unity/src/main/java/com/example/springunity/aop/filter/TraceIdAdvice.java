@@ -14,13 +14,16 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Aspect
-public class TraceIdAdvice {
+public class TraceIdAdvice
+{
     @Pointcut("@annotation(com.example.annotation.TraceIdLog)")
-    public void pointCut() {
+    public void pointCut()
+    {
     }
 
     @Around("pointCut()")
-    public Object doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+    public Object doAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable
+    {
         MDC.put("traceId", TraceIdUtil.getTraceId());
         Object result = proceedingJoinPoint.proceed();
         MDC.remove("traceId");

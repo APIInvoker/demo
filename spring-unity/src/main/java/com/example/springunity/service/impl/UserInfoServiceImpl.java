@@ -1,11 +1,11 @@
 package com.example.springunity.service.impl;
 
+import com.example.page.Page;
+import com.example.page.PageInfo;
 import com.example.springunity.mapper.UserInfoMapper;
 import com.example.springunity.mapper.condition.UserInfoSelectCondition;
 import com.example.springunity.service.UserInfoService;
 import com.example.springunity.service.wrapper.UserInfoWrapper;
-import com.example.page.Page;
-import com.example.page.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +18,14 @@ import java.util.List;
  */
 @Service("userInfoService")
 @Slf4j
-public class UserInfoServiceImpl implements UserInfoService {
+public class UserInfoServiceImpl implements UserInfoService
+{
     @Resource
     private UserInfoMapper userInfoMapper;
 
     @Override
-    public Page<UserInfoWrapper> pageQuery(UserInfoSelectCondition selectCondition, PageInfo pageInfo) {
+    public Page<UserInfoWrapper> pageQuery(UserInfoSelectCondition selectCondition, PageInfo pageInfo)
+    {
         int count = userInfoMapper.countSelectPage(selectCondition);
         if (count == 0) {
             return pageInfo.buildPage();

@@ -1,6 +1,7 @@
 package com.example.domain;
 
-public class PageParam {
+public class PageParam
+{
     /**
      * 当前页
      */
@@ -21,35 +22,43 @@ public class PageParam {
      */
     private String seType = "desc";
 
-    public Integer getPageNum() {
+    public Integer getPageNum()
+    {
         return pageNum;
     }
 
-    public void setPageNum(Integer pageNum) {
+    public void setPageNum(Integer pageNum)
+    {
         this.pageNum = pageNum;
     }
 
-    public Integer getPageSize() {
+    public Integer getPageSize()
+    {
         return pageSize;
     }
 
-    public void setPageSize(Integer pageSize) {
+    public void setPageSize(Integer pageSize)
+    {
         this.pageSize = pageSize;
     }
 
-    public String getOrderField() {
+    public String getOrderField()
+    {
         return orderField;
     }
 
-    public void setOrderField(String orderField) {
+    public void setOrderField(String orderField)
+    {
         this.orderField = orderField;
     }
 
-    public String getSeType() {
+    public String getSeType()
+    {
         return seType;
     }
 
-    public void setSeType(String seType) {
+    public void setSeType(String seType)
+    {
         this.seType = seType;
     }
 }

@@ -14,23 +14,24 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2022/9/9 22:05
  */
 @Slf4j
-public class InterceptorA implements HandlerInterceptor {
+public class InterceptorA implements HandlerInterceptor
+{
     @Override
-    public boolean preHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response,
-                             @Nonnull Object handler) {
+    public boolean preHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull Object handler)
+    {
         log.info("preHandle");
         return true;
     }
 
     @Override
-    public void postHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response,
-                           @Nonnull Object handler, ModelAndView modelAndView) {
+    public void postHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull Object handler, ModelAndView modelAndView)
+    {
         log.info("postHandle");
     }
 
     @Override
-    public void afterCompletion(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response,
-                                @Nonnull Object handler, Exception ex) {
+    public void afterCompletion(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull Object handler, Exception ex)
+    {
         log.info("afterCompletion");
     }
 }

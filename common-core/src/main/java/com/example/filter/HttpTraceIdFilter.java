@@ -17,17 +17,20 @@ import java.io.IOException;
  */
 @Slf4j
 @WebFilter(urlPatterns = "/*")
-public class HttpTraceIdFilter implements Filter {
+public class HttpTraceIdFilter implements Filter
+{
     private final String TRACE_ID = "traceId";
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) throws ServletException
+    {
         log.info("init");
         Filter.super.init(filterConfig);
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException
+    {
         String traceId = TraceIdUtil.getTraceId();
         MDC.put(TRACE_ID, traceId);
         log.info("doFilter pre");
@@ -37,7 +40,8 @@ public class HttpTraceIdFilter implements Filter {
     }
 
     @Override
-    public void destroy() {
+    public void destroy()
+    {
         log.info("destroy");
         Filter.super.destroy();
     }

@@ -21,13 +21,15 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 @Configuration
 @EnableCaching // 开启注解
-public class RedisConfig extends CachingConfigurerSupport {
+public class RedisConfig extends CachingConfigurerSupport
+{
     /**
      * redisTemplate相关配置
      * <p>序列化配置，如果没有配置序列化的话可能会出现往Redis存了值，但是获取不到</p>
      */
     @Bean
-    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
+    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory)
+    {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(factory);
         Jackson2JsonRedisSerializer<Object> jacksonSerial = new Jackson2JsonRedisSerializer<>(Object.class);

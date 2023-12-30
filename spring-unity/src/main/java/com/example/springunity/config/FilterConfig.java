@@ -14,9 +14,11 @@ import org.springframework.context.annotation.Configuration;
  * @since 2023/1/22 022
  */
 @Configuration
-public class FilterConfig {
+public class FilterConfig
+{
     @Bean
-    public FilterRegistrationBean<HttpTraceIdFilter> regFilter0() {
+    public FilterRegistrationBean<HttpTraceIdFilter> regFilter0()
+    {
         FilterRegistrationBean<HttpTraceIdFilter> filterRegistrationBean = new FilterRegistrationBean<>();
         HttpTraceIdFilter httpTraceIdFilter = new HttpTraceIdFilter();
         filterRegistrationBean.setFilter(httpTraceIdFilter);
@@ -28,7 +30,8 @@ public class FilterConfig {
     }
 
     @Bean
-    public FilterRegistrationBean<FilterA> regFilter1() {
+    public FilterRegistrationBean<FilterA> regFilter1()
+    {
         FilterRegistrationBean<FilterA> filterRegistrationBean = new FilterRegistrationBean<>();
         FilterA filterA = new FilterA();
         filterRegistrationBean.setFilter(filterA);
@@ -40,7 +43,8 @@ public class FilterConfig {
     }
 
     @Bean
-    public FilterRegistrationBean<FilterB> regFilter2() {
+    public FilterRegistrationBean<FilterB> regFilter2()
+    {
         FilterRegistrationBean<FilterB> filterRegistrationBean = new FilterRegistrationBean<>();
         FilterB filterB = new FilterB();
         filterRegistrationBean.setFilter(filterB);

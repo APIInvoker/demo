@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class HttpUtil {
+public class HttpUtil
+{
     /**
      * 带参数的get请求
      *
@@ -27,7 +28,8 @@ public class HttpUtil {
      * @param param map形式的参数
      * @return String 返回数据
      */
-    public static String doGet(String url, Map<String, String> param) {
+    public static String doGet(String url, Map<String, String> param)
+    {
         // 创建HttpClient对象
         CloseableHttpClient httpclient = HttpClients.createDefault();
 
@@ -71,7 +73,8 @@ public class HttpUtil {
      * @param url url
      * @return String 返回数据
      */
-    public static String doGet(String url) {
+    public static String doGet(String url)
+    {
         return doGet(url, null);
     }
 
@@ -82,7 +85,8 @@ public class HttpUtil {
      * @param param map形式的参数
      * @return String 返回数据
      */
-    public static String doPost(String url, Map<String, String> param) {
+    public static String doPost(String url, Map<String, String> param)
+    {
         // 创建Httpclient对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse response = null;
@@ -123,7 +127,8 @@ public class HttpUtil {
      * @param url url
      * @return String 返回数据
      */
-    public static String doPost(String url) {
+    public static String doPost(String url)
+    {
         return doPost(url, null);
     }
 
@@ -134,7 +139,8 @@ public class HttpUtil {
      * @param json JSON格式的参数
      * @return String 返回数据
      */
-    public static String doPostJson(String url, String json) {
+    public static String doPostJson(String url, String json)
+    {
         // 创建Httpclient对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse response = null;

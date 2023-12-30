@@ -2,7 +2,8 @@ package com.example.domain;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class QueryCondition {
+public class QueryCondition
+{
     private final Integer DEFAULT_PAGE_NUM = 1;
 
     private final Integer DEFAULT_PAGE_SIZE = 25;
@@ -15,37 +16,44 @@ public class QueryCondition {
 
     private String sortType;
 
-    public Integer getPageNum() {
+    public Integer getPageNum()
+    {
         return pageNum;
     }
 
-    public void setPageNum(Integer pageNum) {
+    public void setPageNum(Integer pageNum)
+    {
         this.pageNum = pageNum;
     }
 
-    public Integer getPageSize() {
+    public Integer getPageSize()
+    {
         return pageSize;
     }
 
-    public void setPageSize(Integer pageSize) {
+    public void setPageSize(Integer pageSize)
+    {
         this.pageSize = pageSize;
     }
 
-    public void reset() {
+    public void reset()
+    {
         pageNum = DEFAULT_PAGE_NUM;
         pageSize = DEFAULT_PAGE_SIZE;
         sortName = null;
         sortType = null;
     }
 
-    public void reset(Integer pageSize) {
+    public void reset(Integer pageSize)
+    {
         this.pageNum = 1;
         this.pageSize = pageSize;
         this.sortName = null;
         this.sortType = null;
     }
 
-    public void setDefault() {
+    public void setDefault()
+    {
         if (getPageNum() == null) {
             setPageNum(DEFAULT_PAGE_NUM);
         }
@@ -54,7 +62,8 @@ public class QueryCondition {
         }
     }
 
-    public void setDefault(Integer pageSize) {
+    public void setDefault(Integer pageSize)
+    {
         if (getPageNum() == null) {
             setPageNum(DEFAULT_PAGE_NUM);
         }
@@ -63,24 +72,29 @@ public class QueryCondition {
         }
     }
 
-    public String getSortName() {
+    public String getSortName()
+    {
         return sortName;
     }
 
-    public String getSortSql() {
+    public void setSortName(String sortName)
+    {
+        this.sortName = sortName;
+    }
+
+    public String getSortSql()
+    {
         String sortTypeDefault = StringUtils.isNotBlank(sortType) ? sortType : "asc";
         return StringUtils.isNotBlank(sortName) ? String.format("%s %s", sortName, sortTypeDefault) : null;
     }
 
-    public void setSortName(String sortName) {
-        this.sortName = sortName;
-    }
-
-    public String getSortType() {
+    public String getSortType()
+    {
         return sortType;
     }
 
-    public void setSortType(String sortType) {
+    public void setSortType(String sortType)
+    {
         this.sortType = sortType;
     }
 }
