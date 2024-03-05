@@ -3,7 +3,6 @@ package com.example.springunity.controller;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.write.metadata.WriteSheet;
-import com.example.annotation.UnifiedResponse;
 import com.example.domain.QueryCondition;
 import com.example.domain.ResponseVO;
 import com.example.enums.AppCode;
@@ -53,7 +52,6 @@ public class UnityController
     private UserInfoBiz userInfoBiz;
 
     @GetMapping("/heart")
-    @UnifiedResponse
     public String health()
     {
         log.info("heart");

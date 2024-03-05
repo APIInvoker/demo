@@ -114,7 +114,7 @@
     </update>
 
     <select id="countSelectPage" resultType="int">
-        select count(0)
+        select count(*)
         <include refid="selectPageAll"/>
     </select>
 

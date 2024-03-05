@@ -1,6 +1,6 @@
 package com.example.springunity.aop.interceptor;
 
-import com.example.annotation.UnifiedResponse;
+import com.example.annotation.DoNotUnify;
 import com.example.domain.ResponseVO;
 import com.example.enums.ResponseCode;
 import com.example.exception.APIException;
@@ -22,8 +22,8 @@ public class ControllerResponseAdvice implements ResponseBodyAdvice<Object>
     @Override
     public boolean supports(MethodParameter methodParameter, @Nonnull Class<? extends HttpMessageConverter<?>> aClass)
     {
-        // response是responseVO类型，或者注释了@NotControllerResponseAdvice都不进行包装
-        return !(methodParameter.getParameterType().isAssignableFrom(ResponseVO.class) || methodParameter.hasMethodAnnotation(UnifiedResponse.class));
+        // response是responseVO类型，或者注释了@DoNotUnify的都不进行统一封装
+        return !(methodParameter.getParameterType().isAssignableFrom(ResponseVO.class) || methodParameter.hasMethodAnnotation(DoNotUnify.class));
     }
 
     @Override

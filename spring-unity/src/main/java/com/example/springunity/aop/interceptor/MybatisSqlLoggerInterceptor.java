@@ -45,7 +45,7 @@ public class MybatisSqlLoggerInterceptor implements Interceptor
         // id为执行的mapper方法的全路径名，如com.uv.dao.UserMapper.insertUser
         String id = mappedStatement.getId();
         // log.info("id ==> " + id);
-        System.out.println("----sqlId:" + id);
+        System.out.println(">>>sqlId:" + id);
         // sql语句类型 select、delete、insert、update
         String sqlCommandType = mappedStatement.getSqlCommandType().toString();
         // log.info("类型 ==> " + sqlCommandType);
@@ -64,7 +64,7 @@ public class MybatisSqlLoggerInterceptor implements Interceptor
         long end = System.currentTimeMillis();
         long time = (end - start);
         // log.info("sql耗时 ==>: " + time);
-        System.out.println("---sql耗时: " + time);
+        System.out.println("---sql耗时: " + time + "毫秒");
         return returnValue;
     }
 
