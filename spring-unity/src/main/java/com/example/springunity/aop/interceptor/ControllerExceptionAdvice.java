@@ -22,6 +22,7 @@ public class ControllerExceptionAdvice
     }
 
     @ExceptionHandler(APIException.class)
+    // @ResponseStatus(HttpStatus.BAD_REQUEST) // 设定浏览器的返回码，不是返回数据里的
     public ResponseVO APIExceptionHandler(APIException e)
     {
         log.error(e.getMessage(), e);
