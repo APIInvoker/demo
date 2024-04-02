@@ -113,15 +113,22 @@
         where id = #{id,jdbcType=BIGINT}
     </update>
 
-    <select id="countSelectPage" resultType="int">
-        select count(*)
-        <include refid="selectPageAll"/>
+    <select id="countSelectPage" resultType="java.lang.Integer">
+        select count(*) from (
+            select *
+            <include refid="selectPageAll"/>
+            limit #{pageSize} offset #{offset}
+        ) a
     </select>
 
-    <select id="selectPage" resultMap="BaseResultMap">
+    <select id="selectUserInfoPage" resultMap="BaseResultMap">
         select *
         <include refid="selectPageAll"/>
-        LIMIT #{pageSize} OFFSET #{offset}
+        limit #{pageSize} offset #{offset}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(*) from user_info
     </select>
 
     <sql id="selectPageAll">

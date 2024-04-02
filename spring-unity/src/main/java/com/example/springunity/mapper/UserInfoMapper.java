@@ -31,7 +31,9 @@ public interface UserInfoMapper extends BaseMapper<UserInfo>
 
     int updateByPrimaryKey(@Param("condition") UserInfoSelectCondition condition);
 
-    int countSelectPage(@Param("condition") UserInfoSelectCondition selectCondition);
+    Integer countSelectPage(@Param("condition") UserInfoSelectCondition selectCondition, @Param("offset") int offset, @Param("pageSize") int pageSize);
 
-    List<UserInfoWrapper> selectPage(@Param("condition") UserInfoSelectCondition condition, @Param("offset") int offset, @Param("pageSize") int pageSize);
+    List<UserInfoWrapper> selectUserInfoPage(@Param("condition") UserInfoSelectCondition condition, @Param("offset") int offset, @Param("pageSize") int pageSize);
+
+    int count();
 }

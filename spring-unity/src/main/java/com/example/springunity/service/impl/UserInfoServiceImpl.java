@@ -26,11 +26,18 @@ public class UserInfoServiceImpl implements UserInfoService
     @Override
     public Page<UserInfoWrapper> pageQuery(UserInfoSelectCondition selectCondition, PageInfo pageInfo)
     {
-        int count = userInfoMapper.countSelectPage(selectCondition);
-        if (count == 0) {
+        Integer count = userInfoMapper.countSelectPage(selectCondition, pageInfo.getOffset(), pageInfo.getPageSize());
+        if (count == null || 0 == count) {
             return pageInfo.buildPage();
         }
-        List<UserInfoWrapper> userInfoWrapperList = userInfoMapper.selectPage(selectCondition, pageInfo.getOffset(), pageInfo.getPageSize());
+        List<UserInfoWrapper> userInfoWrapperList = userInfoMapper.selectUserInfoPage(selectCondition, pageInfo.getOffset(), pageInfo.getPageSize());
         return pageInfo.buildPage(userInfoWrapperList, count);
+    }
+
+    @Override
+    public int count()
+    {
+        int count = userInfoMapper.count();
+        return count;
     }
 }

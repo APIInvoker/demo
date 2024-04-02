@@ -11,15 +11,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-public class TestSchedule
+public class Schedule1
 {
     @TraceIdLog
-    @Scheduled(cron = "3 * * * * ?")
+    @Scheduled(cron = "0 0/10 * * * ? ")
     public void task1()
     {
-        log.info("task1 info");
-        log.error("task1 error");
-        log.debug("task1 debug");
-        log.warn("task1 warn");
+        log.info("Schedule1 execute");
     }
 }

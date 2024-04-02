@@ -25,7 +25,7 @@ public class FilterConfig
         filterRegistrationBean.addUrlPatterns("*");// 配置过滤规则
         filterRegistrationBean.addInitParameter("name", "hahaha");// 设置init参数
         filterRegistrationBean.setName("httpTraceIdFilter");// 设置过滤器名称
-        filterRegistrationBean.setOrder(0);// 执行次序
+        filterRegistrationBean.setOrder(0);// 设置过滤器顺序，越小越优先
         return filterRegistrationBean;
     }
 
@@ -38,7 +38,7 @@ public class FilterConfig
         filterRegistrationBean.addUrlPatterns("*");// 配置过滤规则
         filterRegistrationBean.addInitParameter("name", "hahaha");// 设置init参数
         filterRegistrationBean.setName("filterA");// 设置过滤器名称
-        filterRegistrationBean.setOrder(1);// 执行次序
+        filterRegistrationBean.setOrder(1);// 设置过滤器顺序，越小越优先
         return filterRegistrationBean;
     }
 
@@ -51,7 +51,7 @@ public class FilterConfig
         filterRegistrationBean.addUrlPatterns("*");// 配置过滤规则
         filterRegistrationBean.addInitParameter("name", "hahaha");// 设置init参数
         filterRegistrationBean.setName("filterB");// 设置过滤器名称
-        filterRegistrationBean.setOrder(2);// 执行次序
+        filterRegistrationBean.setOrder(2);// 设置过滤器顺序，越小越优先
         return filterRegistrationBean;
     }
 }

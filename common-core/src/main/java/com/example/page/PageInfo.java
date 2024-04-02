@@ -13,6 +13,7 @@ public class PageInfo implements Serializable
     private static final long serialVersionUID = 5675084397100799553L;
 
     private static final int MAX_PAGE_SIZE_1 = 100;
+    private static final int MAX_PAGE_SIZE_2 = 1000000;
 
     private int pageNum = 1; // 当前页码
     private int pageSize = 25; // 每页条数
@@ -43,6 +44,11 @@ public class PageInfo implements Serializable
     public static PageInfo buildExportPageInfo1()
     {
         return new PageInfo(MAX_PAGE_SIZE_1);
+    }
+
+    public static PageInfo buildExportPageInfo2()
+    {
+        return new PageInfo(MAX_PAGE_SIZE_2);
     }
 
     public <T> Page<T> buildPage()

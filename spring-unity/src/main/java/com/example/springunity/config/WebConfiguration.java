@@ -13,7 +13,7 @@ public class WebConfiguration implements WebMvcConfigurer {
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         /*
         将MappingJackson2HttpMessageConverter排在StringHttpMessageConverter前面。
-        以解决在统一封装返回对象操作中，在对String做特殊处理时，手动生成的JSON字符串中存在反斜杠的问题。
+        以解决接口返回类型为String时，解析器对Content-Type为text/plain的返回进行解析时失败的问题
          */
         converters.add(0, new MappingJackson2HttpMessageConverter());
     }

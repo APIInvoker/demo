@@ -25,6 +25,7 @@ public class UserInfoBiz
 
     public Page<UserInfoVO> queryUserInfoPage(UnityController.UserInfoCondition condition, PageInfo pageInfo)
     {
+        long a = System.currentTimeMillis();
         UserInfoSelectCondition selectCondition = UserInfoSelectCondition.buildUserInfoCondition(condition);
         Page<UserInfoWrapper> wrapperPage = userInfoService.pageQuery(selectCondition, pageInfo);
         List<UserInfoVO> voList = new ArrayList<>();
@@ -32,6 +33,13 @@ public class UserInfoBiz
             UserInfoVO vo = UserInfoVO.build(wrapper);
             voList.add(vo);
         }
+        System.out.println("查询耗时：" + (System.currentTimeMillis() - a) / 1000 + "秒，" + "查到" + voList.size() +  "条数据" );
         return pageInfo.buildPage(voList, wrapperPage.getPageInfo());
+    }
+
+    public int queryUserInfoCount(UnityController.UserInfoCondition userInfoCondition)
+    {
+        int count = userInfoService.count();
+        return count;
     }
 }

@@ -44,27 +44,17 @@ public class MybatisSqlLoggerInterceptor implements Interceptor
         MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
         // id为执行的mapper方法的全路径名，如com.uv.dao.UserMapper.insertUser
         String id = mappedStatement.getId();
-        // log.info("id ==> " + id);
-        System.out.println(">>>sqlId:" + id);
-        // sql语句类型 select、delete、insert、update
-        String sqlCommandType = mappedStatement.getSqlCommandType().toString();
-        // log.info("类型 ==> " + sqlCommandType);
-        System.out.println("---sql类型:" + sqlCommandType);
-
         BoundSql boundSql = statementHandler.getBoundSql();
-
         // 获取节点的配置
         Configuration configuration = mappedStatement.getConfiguration();
         // 获取到最终的sql语句
         String newsql = getSql(configuration, boundSql, id);
-        // log.info("拦截的sql ==>: " + newsql);
-        System.out.println("---sql:" + newsql);
         long start = System.currentTimeMillis();
         Object returnValue = invocation.proceed();
         long end = System.currentTimeMillis();
         long time = (end - start);
         // log.info("sql耗时 ==>: " + time);
-        System.out.println("---sql耗时: " + time + "毫秒");
+        log.info("---sql耗时: " + time + "毫秒 " + newsql);
         return returnValue;
     }
 

@@ -12,5 +12,7 @@ import com.example.springunity.service.wrapper.UserInfoWrapper;
  */
 public interface UserInfoService
 {
-    Page<UserInfoWrapper> pageQuery(UserInfoSelectCondition selectCondition, PageInfo pageInfo);
+    public static final int a = 1;
+    public abstract int count();
+    public abstract Page<UserInfoWrapper> pageQuery(UserInfoSelectCondition selectCondition, PageInfo pageInfo);
 }
