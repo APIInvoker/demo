@@ -56,28 +56,27 @@ public class UnityController
     @Resource
     private UserInfoBiz userInfoBiz;
 
-    @GetMapping("/heart")
-    public String health()
+    @GetMapping("/success")
+    public String success()
     {
-        log.error("heart");
         return "success";
     }
 
-    @GetMapping("/testResponse")
-    public ResponseVO testResponse()
+    @GetMapping("/successString")
+    public ResponseVO successString()
     {
-        log.info("testResponseVO");
-        return new ResponseVO("success");
+        return new ResponseVO("successString");
     }
 
-    @RequestMapping("http")
-    public String testHttp()
+    @RequestMapping("testHttp")
+    public void testHttp()
     {
-        return HttpUtil.doGet("www.baidu.com");
+        String s = HttpUtil.doGet("https://www.baidu.com");
+        log.info(s);
     }
 
-    @RequestMapping("redis")
-    public void redis()
+    @RequestMapping("testRedis")
+    public void testRedis()
     {
         log.info(String.valueOf(redisTemplate.opsForValue().get("name")));
         redisTemplate.opsForValue().set("name", "zx", 60L, TimeUnit.SECONDS);

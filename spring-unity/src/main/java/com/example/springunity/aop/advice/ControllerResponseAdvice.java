@@ -1,11 +1,7 @@
-package com.example.springunity.aop.interceptor;
+package com.example.springunity.aop.advice;
 
 import com.example.annotation.DoNotUnify;
 import com.example.domain.ResponseVO;
-import com.example.enums.ResponseCode;
-import com.example.exception.APIException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
  * @since 2022/9/9 22:05
  */
 @Slf4j
-public class InterceptorA implements HandlerInterceptor
+public class AInterceptor implements HandlerInterceptor
 {
     @Override
     public boolean preHandle(@Nonnull HttpServletRequest request, @Nonnull HttpServletResponse response, @Nonnull Object handler)

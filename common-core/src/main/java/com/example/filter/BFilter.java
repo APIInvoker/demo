@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 @Slf4j
 @WebFilter(urlPatterns = "/*")
-public class FilterA implements Filter
+public class BFilter implements Filter
 {
     @Override
     public void init(FilterConfig filterConfig)

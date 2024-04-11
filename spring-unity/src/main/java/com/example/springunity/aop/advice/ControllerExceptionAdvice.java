@@ -1,4 +1,4 @@
-package com.example.springunity.aop.interceptor;
+package com.example.springunity.aop.advice;
 
 import com.example.domain.ResponseVO;
 import com.example.enums.ResponseCode;

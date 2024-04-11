@@ -31,7 +31,7 @@ import java.util.regex.Matcher;
 @Component
 @Slf4j
 @Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})})
-public class MybatisSqlLoggerInterceptor implements Interceptor
+public class SqlInterceptor implements Interceptor
 {
     @Override
     public Object intercept(Invocation invocation) throws Throwable
@@ -54,7 +54,7 @@ public class MybatisSqlLoggerInterceptor implements Interceptor
         long end = System.currentTimeMillis();
         long time = (end - start);
         // log.info("sql耗时 ==>: " + time);
-        log.info("---sql耗时: " + time + "毫秒 " + newsql);
+        log.info("---sql耗时: " + time + "毫秒 " + newsql + "\n");
         return returnValue;
     }
 
@@ -65,7 +65,8 @@ public class MybatisSqlLoggerInterceptor implements Interceptor
     private String getSql(Configuration configuration, BoundSql boundSql, String sqlId)
     {
         String sql = showSql(configuration, boundSql);
-        return sqlId + ":" + sql;
+        // return sqlId + ":" + sql;
+        return sql;
     }
 
     /**

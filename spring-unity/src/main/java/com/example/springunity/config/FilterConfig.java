@@ -1,7 +1,7 @@
 package com.example.springunity.config;
 
-import com.example.filter.FilterA;
-import com.example.filter.FilterB;
+import com.example.filter.AFilter;
+import com.example.filter.BFilter;
 import com.example.filter.HttpTraceIdFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -30,10 +30,10 @@ public class FilterConfig
     }
 
     @Bean
-    public FilterRegistrationBean<FilterA> regFilter1()
+    public FilterRegistrationBean<AFilter> regFilter1()
     {
-        FilterRegistrationBean<FilterA> filterRegistrationBean = new FilterRegistrationBean<>();
-        FilterA filterA = new FilterA();
+        FilterRegistrationBean<AFilter> filterRegistrationBean = new FilterRegistrationBean<>();
+        AFilter filterA = new AFilter();
         filterRegistrationBean.setFilter(filterA);
         filterRegistrationBean.addUrlPatterns("*");// 配置过滤规则
         filterRegistrationBean.addInitParameter("name", "hahaha");// 设置init参数
@@ -43,10 +43,10 @@ public class FilterConfig
     }
 
     @Bean
-    public FilterRegistrationBean<FilterB> regFilter2()
+    public FilterRegistrationBean<BFilter> regFilter2()
     {
-        FilterRegistrationBean<FilterB> filterRegistrationBean = new FilterRegistrationBean<>();
-        FilterB filterB = new FilterB();
+        FilterRegistrationBean<BFilter> filterRegistrationBean = new FilterRegistrationBean<>();
+        BFilter filterB = new BFilter();
         filterRegistrationBean.setFilter(filterB);
         filterRegistrationBean.addUrlPatterns("*");// 配置过滤规则
         filterRegistrationBean.addInitParameter("name", "hahaha");// 设置init参数
