@@ -4,8 +4,8 @@ import com.example.page.Page;
 import com.example.page.PageInfo;
 import com.example.springunity.mapper.UserInfoMapper;
 import com.example.springunity.mapper.condition.UserInfoSelectCondition;
+import com.example.springunity.mapper.entity.UserInfo;
 import com.example.springunity.service.UserInfoService;
-import com.example.springunity.service.wrapper.UserInfoWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -24,20 +24,19 @@ public class UserInfoServiceImpl implements UserInfoService
     private UserInfoMapper userInfoMapper;
 
     @Override
-    public Page<UserInfoWrapper> pageQuery(UserInfoSelectCondition selectCondition, PageInfo pageInfo)
+    public Page<UserInfo> pageQuery(UserInfoSelectCondition selectCondition, PageInfo pageInfo)
     {
         Integer count = userInfoMapper.countSelectPage(selectCondition, pageInfo.getOffset(), pageInfo.getPageSize());
         if (count == null || 0 == count) {
             return pageInfo.buildPage();
         }
-        List<UserInfoWrapper> userInfoWrapperList = userInfoMapper.selectUserInfoPage(selectCondition, pageInfo.getOffset(), pageInfo.getPageSize());
-        return pageInfo.buildPage(userInfoWrapperList, count);
+        List<UserInfo> userInfoList = userInfoMapper.selectUserInfoPage(selectCondition, pageInfo.getOffset(), pageInfo.getPageSize());
+        return pageInfo.buildPage(userInfoList, count);
     }
 
     @Override
     public int count()
     {
-        int count = userInfoMapper.count();
-        return count;
+        return userInfoMapper.count();
     }
 }

@@ -1,7 +1,7 @@
 package com.example.springunity.controller.vo;
 
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.example.springunity.service.wrapper.UserInfoWrapper;
+import com.example.springunity.mapper.entity.UserInfo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
@@ -16,7 +16,7 @@ public class UserInfoVO implements Serializable
     /**
      * 主键id
      */
-    private Long id;
+    private Long userInfoId;
     /**
      * 创建时间
      */
@@ -28,10 +28,6 @@ public class UserInfoVO implements Serializable
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss SSS")
     private String gmtModified;
-    /**
-     * 用户id
-     */
-    private Long userId;
     /**
      * 昵称
      */
@@ -58,30 +54,27 @@ public class UserInfoVO implements Serializable
      */
     private Integer income;
 
-    public static UserInfoVO build(UserInfoWrapper wrapper)
+    public static UserInfoVO build(UserInfo userInfo)
     {
         UserInfoVO userInfoVO = new UserInfoVO();
-        userInfoVO.setId(wrapper.getId());
-        userInfoVO.setGmtCreate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS").format(wrapper.getGmtCreate()));
-        userInfoVO.setGmtModified(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS").format(wrapper.getGmtModified()));
-        userInfoVO.setUserId(wrapper.getUserId());
-        userInfoVO.setNickName(wrapper.getNickName());
-        userInfoVO.setSex(wrapper.getSex());
-        userInfoVO.setBornYear(wrapper.getBornYear());
-        userInfoVO.setAge(wrapper.getAge());
-        userInfoVO.setBirthday(new SimpleDateFormat("yyyy-MM-dd").format(wrapper.getBirthday()));
-        userInfoVO.setIncome(wrapper.getIncome());
+        userInfoVO.setUserInfoId(userInfo.getUserInfoId());
+        userInfoVO.setGmtCreate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS").format(userInfo.getGmtCreate()));
+        userInfoVO.setGmtModified(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS").format(userInfo.getGmtModified()));
+        userInfoVO.setNickName(userInfo.getNickName());
+        userInfoVO.setSex(userInfo.getSex());
+        userInfoVO.setBornYear(userInfo.getBornYear());
+        userInfoVO.setAge(userInfo.getAge());
+        userInfoVO.setBirthday(new SimpleDateFormat("yyyy-MM-dd").format(userInfo.getBirthday()));
+        userInfoVO.setIncome(userInfo.getIncome());
         return userInfoVO;
     }
 
-    public Long getId()
-    {
-        return id;
+    public Long getUserInfoId() {
+        return userInfoId;
     }
 
-    public void setId(Long id)
-    {
-        this.id = id;
+    public void setUserInfoId(Long userInfoId) {
+        this.userInfoId = userInfoId;
     }
 
     public String getGmtCreate()
@@ -102,16 +95,6 @@ public class UserInfoVO implements Serializable
     public void setGmtModified(String gmtModified)
     {
         this.gmtModified = gmtModified;
-    }
-
-    public Long getUserId()
-    {
-        return userId;
-    }
-
-    public void setUserId(Long userId)
-    {
-        this.userId = userId;
     }
 
     public String getNickName()

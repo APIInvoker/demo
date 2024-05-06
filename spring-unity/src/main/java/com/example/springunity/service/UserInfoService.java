@@ -3,7 +3,7 @@ package com.example.springunity.service;
 import com.example.page.Page;
 import com.example.page.PageInfo;
 import com.example.springunity.mapper.condition.UserInfoSelectCondition;
-import com.example.springunity.service.wrapper.UserInfoWrapper;
+import com.example.springunity.mapper.entity.UserInfo;
 
 /**
  * @author zx
@@ -14,5 +14,5 @@ public interface UserInfoService
 {
     public static final int a = 1;
     public abstract int count();
-    public abstract Page<UserInfoWrapper> pageQuery(UserInfoSelectCondition selectCondition, PageInfo pageInfo);
+    public abstract Page<UserInfo> pageQuery(UserInfoSelectCondition selectCondition, PageInfo pageInfo);
 }

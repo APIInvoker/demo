@@ -233,7 +233,7 @@ public class UnityController
             // 去调用写入,这里我调用了五次，实际使用时根据数据库分页的总的页数来
             for (int i = 0; i < size; i++) {
                 // 分页去数据库查询数据 这里可以去数据库查询每一页的数据
-                System.out.println("写入1次");
+                System.out.println("第" + i + "次写入");
                 List<UserInfoVO> data1 = data.take();
                 excelWriter.write(data1, writeSheet);
             }
@@ -241,7 +241,6 @@ public class UnityController
             throw new RuntimeException(e);
         }
         System.out.println("导出Excel耗时：" + (System.currentTimeMillis() - b) + "毫秒");
-        long c = System.currentTimeMillis();
         FileUtil.downloadExcelFromServer(response, fileName);
         System.out.println("下载文件耗时：" + (System.currentTimeMillis() - b) + "毫秒");
     }

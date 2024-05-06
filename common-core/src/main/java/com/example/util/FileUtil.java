@@ -32,7 +32,7 @@ public class FileUtil
         // 设置content-disposition响应头控制浏览器以下载的形式打开文件
         response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, StandardCharsets.UTF_8) + ".xlsx");
 
-        String file = Paths.get(CommonConst.EXCEL_EXPORT_PATH) + "\\" + fileName + ".xlsx";
+        String file = Paths.get(CommonConst.EXCEL_EXPORT_PATH) + "/" + fileName + ".xlsx";
         InputStream in;
         OutputStream out = null;
         try {

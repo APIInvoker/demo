@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springunity.mapper.AreaMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.springunity.mapper.entity.Area">
+            <id property="areaId" column="area_id" jdbcType="INTEGER"/>
+            <result property="parentAreaId" column="parent_area_id" jdbcType="INTEGER"/>
+            <result property="level" column="level" jdbcType="SMALLINT"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="wholeName" column="whole_name" jdbcType="VARCHAR"/>
+            <result property="longitude" column="longitude" jdbcType="VARCHAR"/>
+            <result property="latitude" column="latitude" jdbcType="VARCHAR"/>
+            <result property="cityCode" column="city_code" jdbcType="VARCHAR"/>
+            <result property="zipCode" column="zip_code" jdbcType="CHAR"/>
+            <result property="areaCode" column="area_code" jdbcType="VARCHAR"/>
+            <result property="pinYin" column="pin_yin" jdbcType="VARCHAR"/>
+            <result property="simplePy" column="simple_py" jdbcType="VARCHAR"/>
+            <result property="perPinYin" column="per_pin_yin" jdbcType="CHAR"/>
+    </resultMap>
+
+    <select id="selectByLevel" resultMap="BaseResultMap">
+        select area_id, name, level from area where level = #{level}
+    </select>
+
+    <select id="selectByParentIdList" resultMap="BaseResultMap">
+        select area_id, name, level from area where parent_area_id in <foreach collection="parentIdList" separator="," open="(" close=")" item="e">#{e}</foreach>
+    </select>
+</mapper>

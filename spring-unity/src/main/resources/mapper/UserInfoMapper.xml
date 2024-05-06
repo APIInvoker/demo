@@ -4,12 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.springunity.mapper.UserInfoMapper">
 
-    <resultMap id="BaseResultMap" type="com.example.springunity.service.wrapper.UserInfoWrapper">
-        <id property="id" column="id" jdbcType="BIGINT"/>
+    <resultMap id="BaseResultMap" type="com.example.springunity.mapper.entity.UserInfo">
+        <id property="userInfoId" column="user_info_id" jdbcType="BIGINT"/>
         <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
         <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
         <result property="deleted" column="deleted" jdbcType="TINYINT"/>
-        <result property="userId" column="user_id" jdbcType="BIGINT"/>
         <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
         <result property="sex" column="sex" jdbcType="TINYINT"/>
         <result property="bornYear" column="born_year" jdbcType="OTHER"/>
@@ -21,24 +20,23 @@
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select *
         from user_info
-        where id = #{id,jdbcType=BIGINT}
+        where user_info_id = #{user_info_id,jdbcType=BIGINT}
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete
         from user_info
-        where id = #{id,jdbcType=BIGINT}
+        where user_info_id = #{user_info_id,jdbcType=BIGINT}
     </delete>
 
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.springunity.mapper.entity.UserInfo"
+    <insert id="insertSelective" keyColumn="user_info_id" keyProperty="user_info_id" parameterType="com.example.springunity.mapper.entity.UserInfo"
             useGeneratedKeys="true">
         insert into user_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">id,</if>
+            <if test="userInfoId != null">user_info_id,</if>
             <if test="gmtCreate != null">gmt_create,</if>
             <if test="gmtModified != null">gmt_modified,</if>
             <if test="deleted != null">deleted,</if>
-            <if test="userId != null">user_id,</if>
             <if test="nickName != null">nick_name,</if>
             <if test="sex != null">sex,</if>
             <if test="bornYear != null">born_year,</if>
@@ -47,11 +45,10 @@
             <if test="income != null">income,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">#{id,jdbcType=BIGINT},</if>
+            <if test="userInfoId != null">#{user_info_id,jdbcType=BIGINT},</if>
             <if test="gmtCreate != null">#{gmtCreate,jdbcType=TIMESTAMP},</if>
             <if test="gmtModified != null">#{gmtModified,jdbcType=TIMESTAMP},</if>
             <if test="deleted != null">#{deleted,jdbcType=TINYINT},</if>
-            <if test="userId != null">#{userId,jdbcType=BIGINT},</if>
             <if test="nickName != null">#{nickName,jdbcType=VARCHAR},</if>
             <if test="sex != null">#{sex,jdbcType=TINYINT},</if>
             <if test="bornYear != null">#{bornYear,jdbcType=OTHER},</if>
@@ -73,9 +70,6 @@
             <if test="deleted != null">
                 deleted = #{deleted,jdbcType=TINYINT},
             </if>
-            <if test="userId != null">
-                user_id = #{userId,jdbcType=BIGINT},
-            </if>
             <if test="nickName != null">
                 nick_name = #{nickName,jdbcType=VARCHAR},
             </if>
@@ -95,7 +89,7 @@
                 income = #{income,jdbcType=DECIMAL},
             </if>
         </set>
-        where id = #{id,jdbcType=BIGINT}
+        where user_info_id = #{user_info_id,jdbcType=BIGINT}
     </update>
 
     <update id="updateByPrimaryKey" parameterType="com.example.springunity.mapper.entity.UserInfo">
@@ -103,14 +97,13 @@
         set gmt_create   = #{gmtCreate,jdbcType=TIMESTAMP},
             gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
             deleted   = #{deleted,jdbcType=TINYINT},
-            user_id      = #{userId,jdbcType=BIGINT},
             nick_name    = #{nickName,jdbcType=VARCHAR},
             sex          = #{sex,jdbcType=TINYINT},
             born_year    = #{bornYear,jdbcType=OTHER},
             age          = #{age,jdbcType=TINYINT},
             birthday     = #{birthday,jdbcType=DATE},
             income       = #{income,jdbcType=DECIMAL}
-        where id = #{id,jdbcType=BIGINT}
+        where user_info_id = #{id,jdbcType=BIGINT}
     </update>
 
     <select id="countSelectPage" resultType="java.lang.Integer">

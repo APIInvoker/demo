@@ -1,6 +1,6 @@
 package com.example.springunity.config;
 
-import com.example.springunity.aop.interceptor.InterceptorA;
+import com.example.springunity.aop.interceptor.AInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -17,6 +17,6 @@ public class InterceptorConfig implements WebMvcConfigurer
     @Override
     public void addInterceptors(InterceptorRegistry registry)
     {
-        registry.addInterceptor(new InterceptorA()).addPathPatterns("/**");
+        registry.addInterceptor(new AInterceptor()).addPathPatterns("/**");
     }
 }

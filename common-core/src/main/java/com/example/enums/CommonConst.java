@@ -6,6 +6,6 @@ package com.example.enums;
  */
 public class CommonConst
 {
-    public static final String EXCEL_EXPORT_PATH = "C:/Users/zx/Downloads/export/";
+    public static final String EXCEL_EXPORT_PATH = "/Users/zx/Downloads/";
     public static final String EXCEL_TEMPLATE_PATH = "templates/excel/";
 }

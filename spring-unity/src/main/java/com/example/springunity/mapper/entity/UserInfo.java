@@ -1,5 +1,6 @@
 package com.example.springunity.mapper.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,21 +14,12 @@ import java.util.Date;
 @Data
 public class UserInfo implements Serializable
 {
-
-
-    public int method1(String s) {
-        return 1;
-    }
-
-    public String method1(String s, int a) {
-        return "1";
-    }
-
     private static final long serialVersionUID = 1L;
     /**
      * 主键
      */
-    private Long id;
+    @TableId
+    private Long userInfoId;
     /**
      * 创建时间
      */
@@ -40,10 +32,6 @@ public class UserInfo implements Serializable
      * 是否删除
      */
     private Integer deleted;
-    /**
-     * 用户id
-     */
-    private Long userId;
     /**
      * 昵称
      */

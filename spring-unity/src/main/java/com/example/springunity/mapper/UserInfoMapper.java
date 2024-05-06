@@ -3,7 +3,6 @@ package com.example.springunity.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.springunity.mapper.condition.UserInfoSelectCondition;
 import com.example.springunity.mapper.entity.UserInfo;
-import com.example.springunity.service.wrapper.UserInfoWrapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -25,7 +24,7 @@ public interface UserInfoMapper extends BaseMapper<UserInfo>
 
     int insertSelective(@Param("condition") UserInfoSelectCondition condition);
 
-    UserInfoWrapper selectByPrimaryKey(Long id);
+    UserInfo selectByPrimaryKey(Long id);
 
     int updateByPrimaryKeySelective(@Param("condition") UserInfoSelectCondition condition);
 
@@ -33,7 +32,7 @@ public interface UserInfoMapper extends BaseMapper<UserInfo>
 
     Integer countSelectPage(@Param("condition") UserInfoSelectCondition selectCondition, @Param("offset") int offset, @Param("pageSize") int pageSize);
 
-    List<UserInfoWrapper> selectUserInfoPage(@Param("condition") UserInfoSelectCondition condition, @Param("offset") int offset, @Param("pageSize") int pageSize);
+    List<UserInfo> selectUserInfoPage(@Param("condition") UserInfoSelectCondition condition, @Param("offset") int offset, @Param("pageSize") int pageSize);
 
     int count();
 }

@@ -54,7 +54,7 @@ public class SqlInterceptor implements Interceptor
         long end = System.currentTimeMillis();
         long time = (end - start);
         // log.info("sql耗时 ==>: " + time);
-        log.info("---sql耗时: " + time + "毫秒 " + newsql + "\n");
+        log.info("---sql耗时: " + time + "ms " + newsql + "\n");
         return returnValue;
     }
 
